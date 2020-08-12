@@ -1,0 +1,14 @@
+{
+  "name": "trip-planner",
+  "version": "1.0.0",
+  "description": "trip planner app front end",
+  "main": "./js/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shiyun Lu",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
