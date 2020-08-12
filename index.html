@@ -3,15 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script defer src="https://maps.googleapis.com/maps/api/js?key=process.env.GOOGLE_KEY&libraries=places"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./styles/main.css">
+
+  <!-- <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXSwfxutGMziO5ZgPvglcdV8FlI0oKqgY&libraries=places"></script> -->
   <script type="module" src="./js/index.js"></script>
+
   <title>Trip Planner</title>
 </head>
+
 <body>
-  <header>
-    Welcome to my site
-  </header>
+  <section class="modal" id="search-modal">  
+    <form class="modal-content" id="init-form">
+      <div class="input-city-container">
+        <label for="input-city">City: </label>
+        <input type="text" name="input-city" id="input-city">
+      </div>
+      <div class="input-date-container">
+        <label for="start-date">From: </label>
+        <input type="date" name="start-date" id="start-date">
+        <label for="end-date">To: </label>
+        <input type="date" name="end-date" id="end-date">
+      </div>
+      <button id="search-submit">Start Exploring</button>
+    </form>
+
+    <div class="intro-panel">
+
+    </div>
+  </section>
+
+  <main class="main-container">
+    <section id="planner"></section>
+
+    <section class="place-container">
+      <div id="place-list">
+        <ul class="place-filter">
+          <li><i class="material-icons">local_see</i>Attr</li>
+          <li><i class="material-icons">local_hotel</i>Hotel</li>
+          <li><i class="material-icons">local_mall</i>Shop</li>
+          <li><i class="material-icons">local_dining</i>Food</li>
+          <li><i class="material-icons">local_cafe</i>Coffee</li>
+          <li><i class="material-icons">local_bar</i>Drinks</li>
+        </ul>
+      </div>
+
+      <div id="map">
+
+      </div>
+    </section>
+
+  </main>
   
 </body>
 </html>
