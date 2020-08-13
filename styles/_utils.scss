@@ -1,0 +1,74 @@
+// COLOR VARIABLES
+$color-white: #ffffff;
+$color-light: #f4f4f4;
+$color-black: #212121;
+$color-light-grey: #e0e0e0;
+$color-dark-grey: #424242;
+$color-yellow: #FFDE03;
+$color-blue: #0336FF;
+$color-pink: #FF0266;
+$color-orange: #FF6D00;
+$color-green: #00BFA5;
+$color-purple: #AA00FF;
+
+$font-primary: 'Ubuntu', sans-serif;
+
+// MIXINS
+@mixin flex($direction, $justifyContent, $alignItems) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justifyContent;
+  align-items: $alignItems;
+}
+
+// BUTTONS
+@mixin btn-ghost($color) {
+  &:hover {
+    color: $color-light;
+    border: .15rem $color solid;
+    background-color: $color;
+    transition: all .3s ease;
+
+    i {
+      color: $color-light;
+      background-color: $color;
+      transition: all .3s ease;
+    }
+  }
+  &:active {
+    background-color: darken($color, 25%);
+    i {
+      background-color: darken($color, 25%);
+    }
+  }
+}
+
+.btn {
+  padding: .5rem 1rem;
+  border: .15rem $color-dark-grey solid;
+  color: $color-dark-grey;
+}
+
+.btn-blue {
+  @include btn-ghost($color-blue);
+}
+
+.btn-yellow {
+  @include btn-ghost($color-yellow);
+}
+
+.btn-green {
+  @include btn-ghost($color-green);
+}
+
+.btn-pink {
+  @include btn-ghost($color-pink);
+}
+
+.btn-orange {
+  @include btn-ghost($color-orange);
+}
+
+.btn-purple {
+  @include btn-ghost($color-purple)
+}

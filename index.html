@@ -36,23 +36,48 @@
   </section>
 
   <main class="main-container">
-    <section id="planner"></section>
+
+    <section class="planner"></section>
 
     <section class="place-container">
-      <div id="place-list">
-        <ul class="place-filter">
-          <li><i class="material-icons">local_see</i>Attr</li>
-          <li><i class="material-icons">local_hotel</i>Hotel</li>
-          <li><i class="material-icons">local_mall</i>Shop</li>
-          <li><i class="material-icons">local_dining</i>Food</li>
-          <li><i class="material-icons">local_cafe</i>Coffee</li>
-          <li><i class="material-icons">local_bar</i>Drinks</li>
-        </ul>
+
+      <div class="place-card-container">
+
+        <div class="place-filter">
+          <div class="filter-buttons">
+            <li id="site"><a class="btn btn-blue" href="#"><i class="material-icons">local_see</i>Attr</a></li>
+            <li id="lodging"><a class="btn btn-yellow" href="#"><i class="material-icons">local_hotel</i>Hotel</a></li>
+            <li id="shopping"><a class="btn btn-green" href="#"><i class="material-icons">local_mall</i>Shop</a></li>
+            <li id="restaurant"><a class="btn btn-orange" href="#"><i class="material-icons">local_dining</i>Food</a></li>
+            <li id="cafe"><a class="btn btn-purple" href="#"><i class="material-icons">local_cafe</i>Coffee</a></li>
+            <li id="bar"><a class="btn btn-pink" href="#"><i class="material-icons">local_bar</i>Drinks</a></li>
+          </div>
+          <div class="action-link">
+            <a id="apply-filter" href="#">Apply</a>
+          </div>
+        </div>
+
+        <div class="place-list">
+
+          <div class="place-card">
+            <div class="info-img">
+              <img src="https://lh3.googleusercontent.com/p/AF1QipODF50SKIlBKVVOC4Nn_ZUdMA7y2vmTQNJLEks=s1600-w150-h150" alt="place photo">
+            </div>
+            <div class="info-content">
+              <p><i class="material-icons"></i></p>
+              <h3>The Jefferson</h3>
+              <p>1200 16th Street Northwest, Washington</p>
+            </div>
+          </div>
+
+        </div>
+        
       </div>
 
-      <div id="map">
-
+      <div class="map-container">
+        <div id="map"></div>
       </div>
+
     </section>
 
   </main>
