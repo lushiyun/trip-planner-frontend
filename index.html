@@ -40,46 +40,49 @@
     <section class="planner"></section>
 
     <section class="place-container">
+      <div class="place-filter">
+        <div class="filter-buttons">
+          <li id="site"><a class="btn btn-blue" href="#"><i class="material-icons">local_see</i>Attr</a></li>
+          <li id="lodging"><a class="btn btn-yellow" href="#"><i class="material-icons">local_hotel</i>Hotel</a></li>
+          <li id="shopping"><a class="btn btn-green" href="#"><i class="material-icons">local_mall</i>Shop</a></li>
+          <li id="restaurant"><a class="btn btn-orange" href="#"><i class="material-icons">local_dining</i>Food</a></li>
+          <li id="cafe"><a class="btn btn-purple" href="#"><i class="material-icons">local_cafe</i>Cafe</a></li>
+          <li id="bar"><a class="btn btn-pink" href="#"><i class="material-icons">local_bar</i>Drinks</a></li>
+        </div>
+        <div class="action-link">
+          <a id="apply-filter" href="#">Apply</a>
+        </div>
+      </div>
 
-      <div class="place-card-container">
-
-        <div class="place-filter">
-          <div class="filter-buttons">
-            <li id="site"><a class="btn btn-blue" href="#"><i class="material-icons">local_see</i>Attr</a></li>
-            <li id="lodging"><a class="btn btn-yellow" href="#"><i class="material-icons">local_hotel</i>Hotel</a></li>
-            <li id="shopping"><a class="btn btn-green" href="#"><i class="material-icons">local_mall</i>Shop</a></li>
-            <li id="restaurant"><a class="btn btn-orange" href="#"><i class="material-icons">local_dining</i>Food</a></li>
-            <li id="cafe"><a class="btn btn-purple" href="#"><i class="material-icons">local_cafe</i>Coffee</a></li>
-            <li id="bar"><a class="btn btn-pink" href="#"><i class="material-icons">local_bar</i>Drinks</a></li>
-          </div>
-          <div class="action-link">
-            <a id="apply-filter" href="#">Apply</a>
+      <div class="place-list">
+        <div class="place-card">
+          <img class="info-img" src="https://lh3.googleusercontent.com/p/AF1QipODF50SKIlBKVVOC4Nn_ZUdMA7y2vmTQNJLEks=s1600-w150-h150" alt="place photo">
+          <div class="info-content">
+            <div class="icon icon-lodging"><i class="material-icons">local_hotel</i></div>
+            <p class="place-name">The Jefferson</p>
+            <p class="place-address">1200 16th Street Northwest, Washington</p>
+            <div class="place-intro">
+              <span>&#36;</span><span>&#36;</span><span>&#36;</span>  |  <span>&#9825;</span>
+            </div>
           </div>
         </div>
 
-        <div class="place-list">
+        <div class="place-card">
+          <img class="info-img" src="https://lh3.googleusercontent.com/p/AF1QipODF50SKIlBKVVOC4Nn_ZUdMA7y2vmTQNJLEks=s1600-w150-h150" alt="place photo">
+          <div class="info-content">
+            <div class="icon icon-restaurant"><i class="material-icons">local_hotel</i></div>
+            <p class="place-name">Sofitel Washington DC Lafayette Square</p>
+            <p class="place-address">806 15th Street Northwest, Washington</p>
+            <div class="place-intro">
 
-          <div class="place-card">
-            <div class="info-img">
-              <img src="https://lh3.googleusercontent.com/p/AF1QipODF50SKIlBKVVOC4Nn_ZUdMA7y2vmTQNJLEks=s1600-w150-h150" alt="place photo">
-            </div>
-            <div class="info-content">
-              <p><i class="material-icons"></i></p>
-              <h3>The Jefferson</h3>
-              <p>1200 16th Street Northwest, Washington</p>
             </div>
           </div>
-
         </div>
-        
       </div>
-
-      <div class="map-container">
-        <div id="map"></div>
-      </div>
-
+      
     </section>
 
+    <section id="map"></section>
   </main>
   
 </body>

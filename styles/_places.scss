@@ -1,20 +1,15 @@
 .place-container {
-  width: 75vw;
-  height: 100vh;
-  @include flex(row, center, flex-start);
-}
-
-.place-card-container {
-  width: 35%;
-  height: 100%;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  @include flex(column, flex-start, center)
+  width: 26vw;
+  height: 97vh;
+  border: 2px solid $color-light;
+  padding: 2rem;
+  @include flex(column, flex-start, center);
 }
 
 .place-filter {
-  width: 95%;
+  width: 100%;
   .action-link {
+    margin-top: 1rem;
     float: right;
   }
 }
@@ -24,6 +19,8 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
   grid-gap: .5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px dotted $color-grey;
   a {
     @include flex(row, space-around, center)
   }
@@ -35,33 +32,60 @@
 }
 
 .place-list {
-  margin-top: 1rem;
-  width: 95%;
+  margin-top: 2rem;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .place-card {
-  margin-top: 10px;
+  margin-bottom: 1.5rem;
+  width: 98%;
   background-color: $color-white;
   border-radius: 4px;
-  display: flex;
-  z-index: 3;
+  @include flex(row, flex-start, flex-start);
 
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   &:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    cursor: pointer;
   }
 }
 
-.map-container {
-  width: 65%;
-  height: 100vh;
-  @include flex(column, center, center);
+.info-img {
+  width: 17rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 4px 0 0 4px;
+}
+
+.info-content {
+  padding: 2rem 1rem;
+  @include flex(column, space-around, flex-start);
+}
+
+.icon {
+  margin-bottom: 1rem;
+}
+
+.place-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.place-address {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.place-intro {
+  font-size: 1.4rem;
 }
 
 #map {
-  width: 98%;
-  height: 95%;
+  width: 48vw;
+  height: 97vh;
   border-radius: 10px;
   background-color: $color-white;
 }

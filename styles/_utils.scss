@@ -1,15 +1,16 @@
 // COLOR VARIABLES
 $color-white: #ffffff;
 $color-light: #f4f4f4;
+$color-grey: #616161;
+$color-dark: rgb(25, 25, 36);
 $color-black: #212121;
-$color-light-grey: #e0e0e0;
-$color-dark-grey: #424242;
 $color-yellow: #FFDE03;
 $color-blue: #0336FF;
 $color-pink: #FF0266;
 $color-orange: #FF6D00;
 $color-green: #00BFA5;
 $color-purple: #AA00FF;
+
 
 $font-primary: 'Ubuntu', sans-serif;
 
@@ -21,16 +22,16 @@ $font-primary: 'Ubuntu', sans-serif;
   align-items: $alignItems;
 }
 
-// BUTTONS
+///////////////////// BUTTONS /////////////////////
 @mixin btn-ghost($color) {
   &:hover {
-    color: $color-light;
+    color: $color-white;
     border: .15rem $color solid;
     background-color: $color;
     transition: all .3s ease;
 
     i {
-      color: $color-light;
+      color: $color-white;
       background-color: $color;
       transition: all .3s ease;
     }
@@ -45,8 +46,9 @@ $font-primary: 'Ubuntu', sans-serif;
 
 .btn {
   padding: .5rem 1rem;
-  border: .15rem $color-dark-grey solid;
-  color: $color-dark-grey;
+  border: .15rem $color-grey solid;
+  border-radius: 6px;
+  color: $color-grey;
 }
 
 .btn-blue {
@@ -71,4 +73,39 @@ $font-primary: 'Ubuntu', sans-serif;
 
 .btn-purple {
   @include btn-ghost($color-purple)
+}
+
+//////////// ICONS ////////////
+@mixin icon-circle($color) {
+  color: $color;
+  .material-icons {
+    font-size: 1.8rem;
+    padding: .3rem;
+    border: .2rem solid $color;
+    border-radius: 50%;
+  }
+}
+
+.icon-lodging {
+  @include icon-circle($color-yellow);
+}
+
+.icon-site {
+  @include icon-circle($color-blue)
+}
+
+.icon-shopping {
+  @include icon-circle($color-green)
+}
+
+.icon-restaurant {
+  @include icon-circle($color-orange)
+}
+
+.icon-cafe {
+  @include icon-circle($color-purple)
+}
+
+.icon-bar {
+  @include icon-circle($color-pink)
 }
