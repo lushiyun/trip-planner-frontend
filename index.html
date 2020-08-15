@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="./styles/main.css">
 
-  <!-- <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXSwfxutGMziO5ZgPvglcdV8FlI0oKqgY&libraries=places"></script> -->
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXSwfxutGMziO5ZgPvglcdV8FlI0oKqgY&libraries=places"></script>
   <script type="module" src="./js/index.js"></script>
 
   <title>Trip Planner</title>
@@ -42,44 +42,29 @@
     <section class="place-container">
       <div class="place-filter">
         <div class="filter-buttons">
-          <li id="site"><a class="btn btn-blue" href="#"><i class="material-icons">local_see</i>Attr</a></li>
-          <li id="lodging"><a class="btn btn-yellow" href="#"><i class="material-icons">local_hotel</i>Hotel</a></li>
-          <li id="shopping"><a class="btn btn-green" href="#"><i class="material-icons">local_mall</i>Shop</a></li>
-          <li id="restaurant"><a class="btn btn-orange" href="#"><i class="material-icons">local_dining</i>Food</a></li>
-          <li id="cafe"><a class="btn btn-purple" href="#"><i class="material-icons">local_cafe</i>Cafe</a></li>
-          <li id="bar"><a class="btn btn-pink" href="#"><i class="material-icons">local_bar</i>Drinks</a></li>
+          <li class="filter-li" id="see"><a class="btn btn-blue" href="#"><i class="material-icons">local_see</i>Site</a></li>
+          <li class="filter-li" id="hotel"><a class="btn btn-yellow" href="#"><i class="material-icons">local_hotel</i>Hotel</a></li>
+          <li class="filter-li" id="mall"><a class="btn btn-green" href="#"><i class="material-icons">local_mall</i>Shop</a></li>
+          <li class="filter-li" id="dining"><a class="btn btn-orange" href="#"><i class="material-icons">local_dining</i>Food</a></li>
+          <li class="filter-li" id="cafe"><a class="btn btn-purple" href="#"><i class="material-icons">local_cafe</i>Cafe</a></li>
+          <li class="filter-li" id="bar"><a class="btn btn-pink" href="#"><i class="material-icons">local_bar</i>Drinks</a></li>
         </div>
-        <div class="action-link">
-          <a id="apply-filter" href="#">Apply</a>
+        <div>
+          <a class="action-link" id="apply-filter">Apply</a>
         </div>
       </div>
 
       <div class="place-list">
-        <div class="place-card">
-          <img class="info-img" src="https://lh3.googleusercontent.com/p/AF1QipODF50SKIlBKVVOC4Nn_ZUdMA7y2vmTQNJLEks=s1600-w150-h150" alt="place photo">
-          <div class="info-content">
-            <div class="icon icon-lodging"><i class="material-icons">local_hotel</i></div>
-            <p class="place-name">The Jefferson</p>
-            <p class="place-address">1200 16th Street Northwest, Washington</p>
-            <div class="place-intro">
-              <span>&#36;</span><span>&#36;</span><span>&#36;</span>  |  <span>&#9825;</span>
-            </div>
-          </div>
+
+        <!-- <div id="1" class="place-card">
+          <div class="place-content"><div class="icon icon-see"><i class="material-icons">local_see</i></div><p class="place-name">Hilton Hotel</p><p class="place-address">Washington, D.C.</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner"></div></div> (1,000)</div></div><img class="place-img" src="https://via.placeholder.com/150" alt="Hilton Hotel photo">
         </div>
 
-        <div class="place-card">
-          <img class="info-img" src="https://lh3.googleusercontent.com/p/AF1QipODF50SKIlBKVVOC4Nn_ZUdMA7y2vmTQNJLEks=s1600-w150-h150" alt="place photo">
-          <div class="info-content">
-            <div class="icon icon-restaurant"><i class="material-icons">local_hotel</i></div>
-            <p class="place-name">Sofitel Washington DC Lafayette Square</p>
-            <p class="place-address">806 15th Street Northwest, Washington</p>
-            <div class="place-intro">
-
-            </div>
-          </div>
-        </div>
+        <div id="2" class="place-card">
+          <div class="place-content"><div class="icon icon-see"><i class="material-icons">local_see</i></div><p class="place-name">Hilton Hotel</p><p class="place-address">Washington, D.C.</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner"></div></div> (1,000)</div></div><img class="place-img" src="https://via.placeholder.com/150" alt="Hilton Hotel photo"></div>
+        </div> -->
+        
       </div>
-      
     </section>
 
     <section id="map"></section>

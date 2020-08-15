@@ -26,9 +26,14 @@
   }
 }
 
-#apply-filter {
+.action-link {
   color: $color-pink;
   font-size: 1.6rem;
+  padding-bottom: .2rem;
+  &:hover, &:active {
+    border-bottom: 2px solid $color-pink;
+    cursor: pointer;
+  }
 }
 
 .place-list {
@@ -43,7 +48,7 @@
   width: 98%;
   background-color: $color-white;
   border-radius: 4px;
-  @include flex(row, flex-start, flex-start);
+  @include flex(row, space-between, flex-start);
 
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -53,14 +58,14 @@
   }
 }
 
-.info-img {
-  width: 17rem;
-  height: 15rem;
+.place-img {
+  width: 18rem;
+  height: 18rem;
   object-fit: cover;
-  border-radius: 4px 0 0 4px;
+  border-radius: 0 4px 4px 0;
 }
 
-.info-content {
+.place-content {
   padding: 2rem 1rem;
   @include flex(column, space-around, flex-start);
 }
@@ -79,8 +84,32 @@
   margin-bottom: 1rem;
 }
 
-.place-intro {
-  font-size: 1.4rem;
+.place-rating {
+  font-size: 1.2rem;
+}
+
+.stars-outer {
+  position: relative;
+  display: inline-block;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer::before {
+  content: "\2605 \2605 \2605 \2605 \2605";
+  color: $color-light;
+}
+
+.stars-inner::before {
+  content: "\2605 \2605 \2605 \2605 \2605";
+  color: $color-pink;
 }
 
 #map {

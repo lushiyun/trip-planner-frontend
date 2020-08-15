@@ -20,12 +20,10 @@
   transition: all .3s ease;
 }
 
-.btn-blue:active {
-  background-color: #001a83;
-}
-
-.btn-blue:active i {
-  background-color: #001a83;
+.btn-blue.selected {
+  color: #ffffff;
+  border: 0.15rem #0336FF solid;
+  background-color: #0336FF;
 }
 
 .btn-yellow:hover {
@@ -43,12 +41,10 @@
   transition: all .3s ease;
 }
 
-.btn-yellow:active {
-  background-color: #837100;
-}
-
-.btn-yellow:active i {
-  background-color: #837100;
+.btn-yellow.selected {
+  color: #ffffff;
+  border: 0.15rem #FFDE03 solid;
+  background-color: #FFDE03;
 }
 
 .btn-green:hover {
@@ -66,12 +62,10 @@
   transition: all .3s ease;
 }
 
-.btn-green:active {
-  background-color: #004037;
-}
-
-.btn-green:active i {
-  background-color: #004037;
+.btn-green.selected {
+  color: #ffffff;
+  border: 0.15rem #00BFA5 solid;
+  background-color: #00BFA5;
 }
 
 .btn-pink:hover {
@@ -89,12 +83,10 @@
   transition: all .3s ease;
 }
 
-.btn-pink:active {
-  background-color: #820033;
-}
-
-.btn-pink:active i {
-  background-color: #820033;
+.btn-pink.selected {
+  color: #ffffff;
+  border: 0.15rem #FF0266 solid;
+  background-color: #FF0266;
 }
 
 .btn-orange:hover {
@@ -112,12 +104,10 @@
   transition: all .3s ease;
 }
 
-.btn-orange:active {
-  background-color: #803700;
-}
-
-.btn-orange:active i {
-  background-color: #803700;
+.btn-orange.selected {
+  color: #ffffff;
+  border: 0.15rem #FF6D00 solid;
+  background-color: #FF6D00;
 }
 
 .btn-purple:hover {
@@ -135,52 +125,50 @@
   transition: all .3s ease;
 }
 
-.btn-purple:active {
-  background-color: #550080;
+.btn-purple.selected {
+  color: #ffffff;
+  border: 0.15rem #AA00FF solid;
+  background-color: #AA00FF;
 }
 
-.btn-purple:active i {
-  background-color: #550080;
-}
-
-.icon-lodging {
+.icon-hotel {
   color: #FFDE03;
 }
 
-.icon-lodging .material-icons {
+.icon-hotel .material-icons {
   font-size: 1.8rem;
   padding: .3rem;
   border: 0.2rem solid #FFDE03;
   border-radius: 50%;
 }
 
-.icon-site {
+.icon-see {
   color: #0336FF;
 }
 
-.icon-site .material-icons {
+.icon-see .material-icons {
   font-size: 1.8rem;
   padding: .3rem;
   border: 0.2rem solid #0336FF;
   border-radius: 50%;
 }
 
-.icon-shopping {
+.icon-mall {
   color: #00BFA5;
 }
 
-.icon-shopping .material-icons {
+.icon-mall .material-icons {
   font-size: 1.8rem;
   padding: .3rem;
   border: 0.2rem solid #00BFA5;
   border-radius: 50%;
 }
 
-.icon-restaurant {
+.icon-dining {
   color: #FF6D00;
 }
 
-.icon-restaurant .material-icons {
+.icon-dining .material-icons {
   font-size: 1.8rem;
   padding: .3rem;
   border: 0.2rem solid #FF6D00;
@@ -211,14 +199,13 @@
 
 .modal {
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
   overflow: auto;
   background: rgba(0, 0, 0, 0.7);
-  display: none;
 }
 
 .modal-content {
@@ -285,9 +272,15 @@
           align-items: center;
 }
 
-#apply-filter {
+.action-link {
   color: #FF0266;
   font-size: 1.6rem;
+  padding-bottom: .2rem;
+}
+
+.action-link:hover, .action-link:active {
+  border-bottom: 2px solid #FF0266;
+  cursor: pointer;
 }
 
 .place-list {
@@ -309,9 +302,9 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -327,15 +320,15 @@
   cursor: pointer;
 }
 
-.info-img {
-  width: 17rem;
-  height: 15rem;
+.place-img {
+  width: 18rem;
+  height: 18rem;
   -o-object-fit: cover;
      object-fit: cover;
-  border-radius: 4px 0 0 4px;
+  border-radius: 0 4px 4px 0;
 }
 
-.info-content {
+.place-content {
   padding: 2rem 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -365,8 +358,32 @@
   margin-bottom: 1rem;
 }
 
-.place-intro {
-  font-size: 1.4rem;
+.place-rating {
+  font-size: 1.2rem;
+}
+
+.stars-outer {
+  position: relative;
+  display: inline-block;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer::before {
+  content: "\2605 \2605 \2605 \2605 \2605";
+  color: #f4f4f4;
+}
+
+.stars-inner::before {
+  content: "\2605 \2605 \2605 \2605 \2605";
+  color: #FF0266;
 }
 
 #map {

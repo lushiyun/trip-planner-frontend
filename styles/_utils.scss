@@ -36,12 +36,12 @@ $font-primary: 'Ubuntu', sans-serif;
       transition: all .3s ease;
     }
   }
-  &:active {
-    background-color: darken($color, 25%);
-    i {
-      background-color: darken($color, 25%);
-    }
-  }
+}
+
+@mixin btn-selected($color) {
+  color: $color-white;
+  border: .15rem $color solid;
+  background-color: $color;
 }
 
 .btn {
@@ -53,26 +53,44 @@ $font-primary: 'Ubuntu', sans-serif;
 
 .btn-blue {
   @include btn-ghost($color-blue);
+  &.selected {
+    @include btn-selected($color-blue);
+  }
 }
 
 .btn-yellow {
   @include btn-ghost($color-yellow);
+  &.selected {
+    @include btn-selected($color-yellow);
+  }
 }
 
 .btn-green {
   @include btn-ghost($color-green);
+  &.selected {
+    @include btn-selected($color-green);
+  }
 }
 
 .btn-pink {
   @include btn-ghost($color-pink);
+  &.selected {
+    @include btn-selected($color-pink);
+  }
 }
 
 .btn-orange {
   @include btn-ghost($color-orange);
+  &.selected {
+    @include btn-selected($color-orange);
+  }
 }
 
 .btn-purple {
-  @include btn-ghost($color-purple)
+  @include btn-ghost($color-purple);
+  &.selected {
+    @include btn-selected($color-purple);
+  }
 }
 
 //////////// ICONS ////////////
@@ -86,19 +104,19 @@ $font-primary: 'Ubuntu', sans-serif;
   }
 }
 
-.icon-lodging {
+.icon-hotel {
   @include icon-circle($color-yellow);
 }
 
-.icon-site {
+.icon-see {
   @include icon-circle($color-blue)
 }
 
-.icon-shopping {
+.icon-mall {
   @include icon-circle($color-green)
 }
 
-.icon-restaurant {
+.icon-dining {
   @include icon-circle($color-orange)
 }
 
