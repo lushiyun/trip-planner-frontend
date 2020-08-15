@@ -30,7 +30,27 @@ body, html {
 
 .main-container {
   height: 100vh;
-  @include flex(row, flex-start, center);
+  @include flex(row, center, center);
+}
+
+.planner-container, .place-container {
+  height: 100vh;
+  width: 27vw;
+  min-width: 400px;
+}
+
+.planner-container {
+  padding: 1.5rem .75rem 1.5rem 1.5rem;
+}
+
+.place-container {
+  padding: 1.5rem 1.5rem 1.5rem .75rem;
+}
+
+#map {
+  width: 46vw;
+  height: 100vh;
+  background-color: $color-white;
 }
 
 p {

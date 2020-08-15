@@ -1,14 +1,16 @@
-.place-container {
-  width: 26vw;
-  height: 97vh;
-  border: 2px solid $color-light;
-  padding: 2rem;
-  @include flex(column, flex-start, center);
+.place-overview, .place-details {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  background-color: $color-white;
+  @include flex(column, flex-start, flex-start)
 }
 
 .place-filter {
   width: 100%;
-  .action-link {
+  margin-bottom: 1rem;
+  .action-links {
     margin-top: 1rem;
     float: right;
   }
@@ -26,20 +28,36 @@
   }
 }
 
-.action-link {
-  color: $color-pink;
+.action-links {
   font-size: 1.6rem;
-  padding-bottom: .2rem;
   &:hover, &:active {
-    border-bottom: 2px solid $color-pink;
     cursor: pointer;
   }
 }
 
+#clear-filter {
+  margin-right: .5rem;
+  color: $color-grey;
+  &:hover, &:active {
+    border-bottom: 2px solid $color-grey;
+  }
+}
+
+#apply-filter {
+  color: $color-pink;
+  &:hover, &:active {
+    border-bottom: 2px solid $color-pink;
+  }
+}
+
+#place-num {
+  font-size: 1.4rem;
+}
+
 .place-list {
-  margin-top: 2rem;
-  width: 100%;
+  margin-top: 1rem;
   height: 100%;
+  width: 100%;
   overflow-y: scroll;
 }
 
@@ -80,7 +98,7 @@
 }
 
 .place-address {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   margin-bottom: 1rem;
 }
 
@@ -110,11 +128,4 @@
 .stars-inner::before {
   content: "\2605 \2605 \2605 \2605 \2605";
   color: $color-pink;
-}
-
-#map {
-  width: 48vw;
-  height: 97vh;
-  border-radius: 10px;
-  background-color: $color-white;
 }

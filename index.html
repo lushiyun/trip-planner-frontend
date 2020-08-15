@@ -37,34 +37,45 @@
 
   <main class="main-container">
 
-    <section class="planner"></section>
+    <section class="planner-container">
+      <div class="planner-content"></div>
+    </section>
 
     <section class="place-container">
-      <div class="place-filter">
-        <div class="filter-buttons">
-          <li class="filter-li" id="see"><a class="btn btn-blue" href="#"><i class="material-icons">local_see</i>Site</a></li>
-          <li class="filter-li" id="hotel"><a class="btn btn-yellow" href="#"><i class="material-icons">local_hotel</i>Hotel</a></li>
-          <li class="filter-li" id="mall"><a class="btn btn-green" href="#"><i class="material-icons">local_mall</i>Shop</a></li>
-          <li class="filter-li" id="dining"><a class="btn btn-orange" href="#"><i class="material-icons">local_dining</i>Food</a></li>
-          <li class="filter-li" id="cafe"><a class="btn btn-purple" href="#"><i class="material-icons">local_cafe</i>Cafe</a></li>
-          <li class="filter-li" id="bar"><a class="btn btn-pink" href="#"><i class="material-icons">local_bar</i>Drinks</a></li>
+
+      <div class="place-overview">
+        <div class="place-filter">
+          <div class="filter-buttons">
+            <li class="filter-li" id="see"><a class="btn btn-blue" href="#"><i class="material-icons">local_see</i>Site</a></li>
+            <li class="filter-li" id="hotel"><a class="btn btn-yellow" href="#"><i class="material-icons">local_hotel</i>Hotel</a></li>
+            <li class="filter-li" id="mall"><a class="btn btn-green" href="#"><i class="material-icons">local_mall</i>Shop</a></li>
+            <li class="filter-li" id="dining"><a class="btn btn-orange" href="#"><i class="material-icons">local_dining</i>Food</a></li>
+            <li class="filter-li" id="cafe"><a class="btn btn-purple" href="#"><i class="material-icons">local_cafe</i>Cafe</a></li>
+            <li class="filter-li" id="bar"><a class="btn btn-pink" href="#"><i class="material-icons">local_bar</i>Drinks</a></li>
+          </div>
+          <div class="action-links" id="filter-actions">
+            <a id="clear-filter">Clear</a>
+            <a id="apply-filter">Apply</a>
+          </div>
         </div>
-        <div>
-          <a class="action-link" id="apply-filter">Apply</a>
+
+        <div id="place-num"></div>
+  
+        <div class="place-list">
+          <div id="1" class="place-card">
+            <div class="place-content"><div class="icon icon-see"><i class="material-icons">local_see</i></div><p class="place-name">Hilton Hotel</p><p class="place-address">Washington, D.C.</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner"></div></div> (1,000)</div></div><img class="place-img" src="https://via.placeholder.com/150" alt="Hilton Hotel photo">
+          </div>
+  
+          <div id="2" class="place-card">
+            <div class="place-content"><div class="icon icon-see"><i class="material-icons">local_see</i></div><p class="place-name">Hilton Hotel</p><p class="place-address">Washington, D.C.</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner"></div></div> (1,000)</div></div><img class="place-img" src="https://via.placeholder.com/150" alt="Hilton Hotel photo"></div>
+          </div>
         </div>
       </div>
 
-      <div class="place-list">
+      <div class="place-details" style="display: none;">
 
-        <!-- <div id="1" class="place-card">
-          <div class="place-content"><div class="icon icon-see"><i class="material-icons">local_see</i></div><p class="place-name">Hilton Hotel</p><p class="place-address">Washington, D.C.</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner"></div></div> (1,000)</div></div><img class="place-img" src="https://via.placeholder.com/150" alt="Hilton Hotel photo">
-        </div>
-
-        <div id="2" class="place-card">
-          <div class="place-content"><div class="icon icon-see"><i class="material-icons">local_see</i></div><p class="place-name">Hilton Hotel</p><p class="place-address">Washington, D.C.</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner"></div></div> (1,000)</div></div><img class="place-img" src="https://via.placeholder.com/150" alt="Hilton Hotel photo"></div>
-        </div> -->
-        
       </div>
+      
     </section>
 
     <section id="map"></section>
