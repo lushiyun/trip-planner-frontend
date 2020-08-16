@@ -190,7 +190,7 @@ async function showPlaceDetails(place, type) {
   backBtn.innerHTML = `<i class="material-icons">arrow_back</i>`;
   placeActions.appendChild(backBtn);
   backBtn.addEventListener('click', loadInitPage);
-  
+
   const saveBtn = document.createElement('a');
   saveBtn.className = 'heart';
   saveBtn.innerHTML = `<i class="material-icons">favorite</i>`;

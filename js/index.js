@@ -1,7 +1,22 @@
 import { elements } from './modules/elements.js';
 import * as googleMap from './modules/googleMap.js';
+import * as planner from './modules/Planner.js'
 
 const state = {};
+
+const submitInitForm = (e) => {
+  // if (!state.mapCenter) {
+  //   alert('Something went wrong');
+  // } else {
+    // googleMap.initMap(state.mapCenter);
+    // state.selectedTypes = Object.keys(googleMap.placeTypes);
+    planner.getDates();
+    planner.getWeather(38.9071923, -77.0368707);
+    // loadMap();
+    elements.initModal.style.display = 'none';
+  //}
+  e.preventDefault();
+}
 
 const getCity = () => {
   const city = googleMap.searchBox.getPlaces()[0];
@@ -9,25 +24,17 @@ const getCity = () => {
   state.mapCenter = city.geometry.location;
 };
 
-const submitInitForm = (e) => {
-  if (!state.mapCenter) {
-    alert('Something went wrong');
-  } else {
-    googleMap.initMap(state.mapCenter);
-    state.selectedTypes = Object.keys(googleMap.placeTypes);
-    (async function() {
-      for (const type of state.selectedTypes) {
-        const results = await googleMap.getPlaces(state.mapCenter, 12000, type);
-        results.forEach(place => googleMap.savePlace(place, type))
-        googleMap.addMarker(type);
-        googleMap.showMarkers(type);
-        googleMap.createCard(type);
-      }
-      googleMap.updatePlaceNumber(state.selectedTypes);
-    })();
-    elements.initModal.style.display = 'none';
+
+
+const loadMap = async function() {
+  for (const type of state.selectedTypes) {
+    const results = await googleMap.getPlaces(state.mapCenter, 12000, type);
+    results.forEach(place => googleMap.savePlace(place, type))
+    googleMap.addMarker(type);
+    googleMap.showMarkers(type);
+    googleMap.createCard(type);
   }
-  e.preventDefault();
+  googleMap.updatePlaceNumber(state.selectedTypes);
 }
 
 const selectPlaceFilters = (e) => {
@@ -59,9 +66,9 @@ const applyFilterAction = (e) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  googleMap.searchBox.addListener('places_changed', getCity);
+  // googleMap.searchBox.addListener('places_changed', getCity);
   elements.initForm.addEventListener('submit', submitInitForm);
   elements.filterBtns.addEventListener('click', selectPlaceFilters);
   elements.filterActions.addEventListener('click', applyFilterAction);
-  elements.backBtn.addEventListener('click', googleMap.loadInitPage); // TODO: delete later
+  // elements.backBtn.addEventListener('click', getWeather); // TODO: delete later
 })
