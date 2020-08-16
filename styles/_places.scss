@@ -4,7 +4,14 @@
   padding: 1rem;
   border-radius: 10px;
   background-color: $color-white;
+}
+
+.place-overview {
   @include flex(column, flex-start, flex-start)
+}
+
+.place-details {
+  overflow-y: auto;
 }
 
 .place-filter {
@@ -128,4 +135,146 @@
 .stars-inner::before {
   content: "\2605 \2605 \2605 \2605 \2605";
   color: $color-pink;
+}
+
+.hero-photo {
+  width: 100%;
+  height: 20rem;
+  margin-bottom: .5rem;
+  background-image: url('https://via.placeholder.com/300');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  grid-gap: 5px;
+  margin-bottom: 1rem;
+  a {
+    background-color: $color-pink;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    transition: .3s ease;
+    &:hover {
+      opacity: .5;
+    }
+  }
+}
+
+.place-intro {
+  p {
+    font-size: 1.6rem;
+  }
+}
+
+.place-contact {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+  p {
+    @include flex(row, flex-start, center);
+  }
+  i {
+    font-size: 1.4rem;
+    margin-right: 1rem;
+  }
+  a {
+    color: $color-black;
+    &:hover {
+      color: $color-pink;
+    }
+  }
+}
+
+h4 {
+  font-weight: bold;
+  margin-top: .4rem;
+  margin-bottom: .5rem;
+}
+
+.place-hours, .place-reviews {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+  color: $color-grey;
+}
+
+.review-intro {
+  @include flex(row, flex-start, center);
+  .place-rating {
+    margin-left: 1rem;
+  }
+}
+
+.review-card {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  @include flex(column, center, center)
+}
+
+.reviewer-profile {
+  @include flex(row, flex-end, center);
+  align-self: flex-end;
+  img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.reviewer-intro {
+  margin-right: 1rem;
+}
+
+.reviewer-name {
+  color: $color-pink;
+}
+
+.review-time {
+  font-size: 1.2rem;
+}
+
+.reviewer-rating {
+  margin-bottom: .5rem;
+  align-self: flex-end;
+}
+
+.place-actions {
+  position: sticky;
+  bottom: 0;
+  @include flex(row, center, center);
+  a {
+    color: $color-white;
+    margin: 0 .5rem;
+    padding: 1rem;
+    border-radius: 50%;
+    @include flex(row, center, center);
+    transition: all .3s ease;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.back {
+  background-color: $color-blue;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    box-shadow: none;
+    background-color: darken($color-blue, 10%);
+  }
+}
+
+.heart {
+  background-color: $color-pink;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    box-shadow: none;
+    background-color: darken($color-pink, 10%);
+  }
 }

@@ -63,4 +63,5 @@ document.addEventListener('DOMContentLoaded', () => {
   elements.initForm.addEventListener('submit', submitInitForm);
   elements.filterBtns.addEventListener('click', selectPlaceFilters);
   elements.filterActions.addEventListener('click', applyFilterAction);
+  elements.backBtn.addEventListener('click', googleMap.loadInitPage); // TODO: delete later
 })

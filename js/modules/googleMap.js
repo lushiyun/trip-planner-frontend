@@ -85,12 +85,16 @@ export function clearMarkers() {
   Object.values(markers).flat().forEach(marker => marker.setMap(null));
 }
 
+function ratingCalc(rating) {
+  const starPercentage = (rating / 5) * 100;
+  return `${Math.round(starPercentage / 10) * 10}%`;
+}
+
 export function createCard(type) {
   places[type].forEach(place => {
     const imgSrc = (place.photos ? place.photos[0].getUrl({maxHeight: 300, maxWidth: 300}) : 'https://via.placeholder.com/150');
 
-    const starPercentage = (place.rating / 5) * 100;
-    const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+    const starPercentageRounded = ratingCalc(place.rating);
     const numberWithCommas = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const userRatings = (place.user_ratings_total ? numberWithCommas(place.user_ratings_total) : '');
 
@@ -102,7 +106,7 @@ export function createCard(type) {
     elements.placeList.appendChild(placeCard);
     placeCard.addEventListener('click', () => {
       highlightMarker(place);
-      // showPlaceDetails(place);
+      showPlaceDetails(place, type);
     });
   })
 }
@@ -130,16 +134,94 @@ function highlightMarker(place) {
   infowindow.open(map, selectedMarker);
 }
 
-// function showPlaceDetails(selectedPlace) {
-//   service = new google.maps.places.PlacesService(map);
-//   service.getDetails({placeId: `${selectedPlace.place_id}`}, (returnedPlace, status) => {
-//     if(status == google.maps.places.PlacesServiceStatus.OK) {
-//       console.log(returnedPlace);
-//     } else {
-//       console.log('Something went wrong');
-//     }
-//   });
+async function showPlaceDetails(place, type) {
+  const result = await getPlaceDetails(place);
+  const placeDetails = document.createElement('div');
+  placeDetails.className = 'place-details';
 
-//   const detailModal = document.createElement('section');
-//   detailModal.className = 'modal';
-// }
+  if(result.photos) {
+    const heroPhotoSrc = result.photos[0].getUrl({maxHeight: 300, maxWidth: 300});
+    placeDetails.innerHTML += `<div class="hero-photo" style="background-image: url(${heroPhotoSrc})"></div>`;
+    if(result.photos.length > 1) {
+      const photoGallery = document.createElement('div');
+      photoGallery.className = 'photo-gallery';
+      result.photos.slice(1).forEach(photo => {
+        const imgSrc = photo.getUrl({maxHeight: 200, maxWidth: 200});
+        photoGallery.innerHTML += `<a href="${imgSrc}" target="_blank" rel="noopener noreferrer"><img src="${imgSrc}"></a>`;
+      })
+      placeDetails.appendChild(photoGallery);
+    }
+  }
+
+  placeDetails.innerHTML += `
+  <div class="place-intro"><div class="icon icon-${type}"><i class="material-icons">local_${type}</i></div><p class="place-name">${result.name}</p><p class="place-address">${result.formatted_address}</p></div><div class="place-contact"><p><i class="material-icons">local_phone</i> ${result.formatted_phone_number}</p><p><i class="material-icons">language</i><a href="${result.website}">${result.website}</a></p></div>
+  `;
+
+  if(result.weekday_text) {
+    const buzHours = result.weekday_text.reduce((memo, curr) => {
+      return `<p>${memo}</p>` + `<p>${curr}</p>`
+    }, '');
+    placeDetails.innerHTML += `<div class="place-hours"><h4>Business Hours</h4>${buzHours}</div>`;
+  }
+
+  const reviewDiv = document.createElement('div');
+  reviewDiv.className = 'place-reviews';
+
+  const starPercentageRounded = ratingCalc(result.rating);
+  reviewDiv.innerHTML += `
+  <div class="review-intro"><h4>Reviews</h4><div class="place-rating"><div class="stars-outer"><div class="stars-inner" style="width:${starPercentageRounded}></div></div> <span>${result.rating}</span></div></div>
+  `;
+  const reviewList = document.createElement('div');
+  reviewList.className = 'review-list';
+  result.reviews.forEach(review => {
+    const reviewerRatingRounded = ratingCalc(review.rating);
+    reviewList.innerHTML += `
+    <div class="review-card"><div class="review-content"><p>${review.text}</p></div><div class="reviewer-rating"><div class="place-rating"><div class="stars-outer"><div class="stars-inner" style="width:${reviewerRatingRounded}"></div></div> ${review.rating}</div></div><div class="reviewer-profile"><div class="reviewer-intro"><p class="reviewer-name">${review.author_name}</p><p class="review-time">${review.relative_time_description}</p></div><img src="${review.profile_photo_url}"></div></div>
+    `;
+  })
+  reviewDiv.appendChild(reviewList);
+  placeDetails.appendChild(reviewDiv);
+
+  const placeActions = document.createElement('div');
+  placeActions.className = 'place-actions';
+
+  const backBtn = document.createElement('a');
+  backBtn.className = 'back';
+  backBtn.innerHTML = `<i class="material-icons">arrow_back</i>`;
+  placeActions.appendChild(backBtn);
+  backBtn.addEventListener('click', loadInitPage);
+  
+  const saveBtn = document.createElement('a');
+  saveBtn.className = 'heart';
+  saveBtn.innerHTML = `<i class="material-icons">favorite</i>`;
+  placeActions.appendChild(saveBtn);
+  saveBtn.addEventListener('click', () => addPlaceToPlanner(result));
+
+  placeDetails.appendChild(placeActions);
+  elements.placeOverview.style.display = 'none';
+  elements.placeContainer.appendChild(placeDetails);
+}
+
+function getPlaceDetails(place) {
+  const request = { placeId: `${place.place_id}`};
+  service = new google.maps.places.PlacesService(map);
+  return new Promise((resolve, reject) => {
+    service.getDetails(request, (result, status) => {
+      if(status == google.maps.places.PlacesServiceStatus.OK) {
+        resolve(result);
+      } else {
+        reject(status);
+      }
+    })
+  });
+}
+
+export function loadInitPage(e) {
+  const targetLink = e.target.closest('a');
+  targetLink.parentNode.parentNode.remove();
+  elements.placeOverview.removeAttribute('style');
+}
+
+function addPlaceToPlanner(place) {
+  console.log(place);
+}

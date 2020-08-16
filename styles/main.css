@@ -223,6 +223,9 @@
   padding: 1rem;
   border-radius: 10px;
   background-color: #ffffff;
+}
+
+.place-overview {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -236,6 +239,10 @@
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+}
+
+.place-details {
+  overflow-y: auto;
 }
 
 .place-filter {
@@ -404,6 +411,243 @@
 .stars-inner::before {
   content: "\2605 \2605 \2605 \2605 \2605";
   color: #FF0266;
+}
+
+.hero-photo {
+  width: 100%;
+  height: 20rem;
+  margin-bottom: .5rem;
+  background-image: url("https://via.placeholder.com/300");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.photo-gallery {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(110px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  grid-gap: 5px;
+  margin-bottom: 1rem;
+}
+
+.photo-gallery a {
+  background-color: #FF0266;
+}
+
+.photo-gallery img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  opacity: 1;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+
+.photo-gallery img:hover {
+  opacity: .5;
+}
+
+.place-intro p {
+  font-size: 1.6rem;
+}
+
+.place-contact {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+}
+
+.place-contact p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.place-contact i {
+  font-size: 1.4rem;
+  margin-right: 1rem;
+}
+
+.place-contact a {
+  color: #212121;
+}
+
+.place-contact a:hover {
+  color: #FF0266;
+}
+
+h4 {
+  font-weight: bold;
+  margin-top: .4rem;
+  margin-bottom: .5rem;
+}
+
+.place-hours, .place-reviews {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+  color: #616161;
+}
+
+.review-intro {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.review-intro .place-rating {
+  margin-left: 1rem;
+}
+
+.review-card {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.reviewer-profile {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.reviewer-profile img {
+  width: 50px;
+  height: 50px;
+}
+
+.reviewer-intro {
+  margin-right: 1rem;
+}
+
+.reviewer-name {
+  color: #FF0266;
+}
+
+.review-time {
+  font-size: 1.2rem;
+}
+
+.reviewer-rating {
+  margin-bottom: .5rem;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.place-actions {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.place-actions a {
+  color: #ffffff;
+  margin: 0 .5rem;
+  padding: 1rem;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  -webkit-box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
+.back {
+  background-color: #0336FF;
+}
+
+.back:hover {
+  cursor: pointer;
+}
+
+.back:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background-color: #002acf;
+}
+
+.heart {
+  background-color: #FF0266;
+}
+
+.heart:hover {
+  cursor: pointer;
+}
+
+.heart:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  background-color: #ce0051;
 }
 
 .planner-content {
