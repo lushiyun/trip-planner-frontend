@@ -41,6 +41,7 @@ body, html {
 
 .planner-container {
   padding: 1.5rem .75rem 1.5rem 1.5rem;
+  @include flex(column, flex-start, flex-start);
 }
 
 .place-container {

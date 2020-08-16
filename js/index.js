@@ -5,22 +5,16 @@ import * as planner from './modules/Planner.js'
 const state = {};
 
 const submitInitForm = (e) => {
-  // if (!state.mapCenter) {
-  //   alert('Something went wrong');
-  // } else {
-    // googleMap.initMap(state.mapCenter);
-    // state.selectedTypes = Object.keys(googleMap.placeTypes);
+  if (!state.mapCenter) {
+    alert('Something went wrong');
+  } else {
     planner.getDates();
-    planner.getWeather(38.9071923, -77.0368707);
-    // planner.getWeather(38.9071923, -77.0368707).then(planner.showDailyPlanners(weatherData));
-
-    // planner.getWeather(38.9071923, -77.0368707);
-    // planner.showDailyPlanners();
-    // planner.showDailyPlanners();
-    // planner.getWeather(38.9071923, -77.0368707);
-    // loadMap();
+    googleMap.initMap(state.mapCenter);
+    state.selectedTypes = Object.keys(googleMap.placeTypes);
+    loadMap();
+    planner.getWeather(state.mapCenter.lat(), state.mapCenter.lng());
     elements.initModal.style.display = 'none';
-  //}
+  }
   e.preventDefault();
 }
 
@@ -32,7 +26,7 @@ const getCity = () => {
 
 const loadMap = async () => {
   for (const type of state.selectedTypes) {
-    const results = await googleMap.getPlaces(state.mapCenter, 12000, type);
+    const results = await googleMap.getPlaces(state.mapCenter, 8000, type);
     results.forEach(place => googleMap.savePlace(place, type))
     googleMap.addMarker(type);
     googleMap.showMarkers(type);
@@ -70,9 +64,11 @@ const applyFilterAction = (e) => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  // googleMap.searchBox.addListener('places_changed', getCity);
+  googleMap.searchBox.addListener('places_changed', getCity);
   elements.initForm.addEventListener('submit', submitInitForm);
   elements.filterBtns.addEventListener('click', selectPlaceFilters);
   elements.filterActions.addEventListener('click', applyFilterAction);
-  // elements.backBtn.addEventListener('click', getWeather); // TODO: delete later
+  // elements.filterActions.addEventListener('click', () => {
+  //   googleMap.renderRoute()
+  // });
 })

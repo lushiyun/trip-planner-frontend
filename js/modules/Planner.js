@@ -1,10 +1,10 @@
 import { elements } from './elements.js';
+import * as googleMap from './googleMap.js';
 
 const apiKey = '2f066f1da18054ca89663693707a364b';
 const baseURL = 'https://api.openweathermap.org/data/2.5/onecall';
 
 const dateRange = [];
-const weatherData = {};
 
 export const getDates = () => {
   let startDate = new Date(elements.startDateInput.value.replace(/-/g, '\/'));
@@ -23,7 +23,7 @@ export const getWeather = (lat, lon) => {
     .catch(err => err);
 }
 
-export const showDailyPlanners = (data) => {
+const showDailyPlanners = (data) => {
   const weatherData = {};
   data.forEach(dailyWeather => {
     const date = (new Date(dailyWeather.dt * 1000)).toLocaleDateString();
@@ -53,39 +53,49 @@ export const showDailyPlanners = (data) => {
     }
     plannerBox.appendChild(title);
 
-    plannerBox.innerHTML += `<div class="planner-list"></div>`
+    const plannerList = document.createElement('div');
+    plannerList.className = 'planner-list';
+    plannerBox.appendChild(plannerList);
     elements.plannerContent.appendChild(plannerBox);
+
+    plannerList.addEventListener('dragover', sortAndDisplayItem);
+
+    title.addEventListener('click', (e) => {
+      plannerBox.classList.add('clicked');  // TODO: add clicked styling
+      googleMap.renderRoute(e);
+    })
   })
 }
 
-const draggables = document.querySelectorAll('.list-item');
-const containers = document.querySelectorAll('.planner-list');
+export const addPlaceToPlanner = (place, type) => {
+  const placeItem = document.createElement('div');
+  placeItem.className = 'list-item';
+  placeItem.id = place.place_id;
+  placeItem.setAttribute('draggable', true);
+  placeItem.innerHTML = `<div class="item-content"><div class="icon icon-${type}"><i class="material-icons">local_${type}</i></div><p class="place-name">${place.name}</p></div><div class="item-actions"><i class="material-icons delete">delete</i><i class="material-icons duplicate">add_box</i></div>`;
+  elements.placeBucket.querySelector('.planner-list').appendChild(placeItem);
 
-draggables.forEach(draggable => {
-  draggable.addEventListener('dragstart', () => {
-    draggable.classList.add('dragging');
+  placeItem.addEventListener('dragstart', () => {
+    placeItem.classList.add('dragging');
   })
-
-  draggable.addEventListener('dragend', () => {
-    draggable.classList.remove('dragging');
+  placeItem.addEventListener('dragend', () => {
+    placeItem.classList.remove('dragging');
   })
-})
+}
 
-containers.forEach(container => {
-  container.addEventListener('dragover', (e) => {
-    const item = document.querySelector('.dragging');
-    const afterElement = getDragAfterElement(container, e.clientY);
-    if(afterElement) {
-      container.insertBefore(item, afterElement);
-    } else {
-      container.appendChild(item);
-    }
+const sortAndDisplayItem = (e) => {
+  const container = e.target.closest('.planner-list');
+  const item = document.querySelector('.dragging');
+  const afterElement = getDragAfterElement(container, e.clientY);
+  if(afterElement) {
+    container.insertBefore(item, afterElement);
+  } else {
+    container.appendChild(item);
+  }
+  e.preventDefault();
+}
 
-    e.preventDefault();
-  })
-})
-
-function getDragAfterElement(container, y) {
+const getDragAfterElement = (container, y) => {
   const draggableElms = [...container.querySelectorAll('.list-item:not(.dragging)')];
   return draggableElms.reduce((closest, child) => {
     const rect = child.getBoundingClientRect();

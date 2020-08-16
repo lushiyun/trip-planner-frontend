@@ -1,4 +1,5 @@
 import { elements } from './elements.js';
+import * as planner from './Planner.js';
 import * as GMStyles from './GMStyles.js';
 
 let map;
@@ -115,6 +116,61 @@ export function clearCard() {
   elements.placeList.innerHTML = '';
 }
 
+export function renderRoute(e) {
+  const placeIdArr = getPlaceIds(e);
+  if(placeIdArr == null) return
+
+  createDirectionsPanel();
+
+  const directionsService = new google.maps.DirectionsService();
+  const directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsRenderer.setMap(map);
+  directionsRenderer.setPanel(directionsPanel);
+
+  const stopovers = placeIdArr.slice(1, placeIdArr.length - 1).map(id => {
+    return {stopover: true, location: {placeId: id}}
+  });
+  const request = {
+    origin: {placeId: placeIdArr[0]},
+    destination: {placeId: placeIdArr[placeIdArr.length - 1]},
+    waypoints: stopovers,
+    travelMode: google.maps.TravelMode.WALKING,
+    unitSystem: google.maps.UnitSystem.IMPERIAL
+  };
+
+  directionsService.route(request, function(result, status) {
+    if (status == 'OK') {
+      directionsRenderer.setDirections(result);
+    } else {
+      console.log(status);
+    }
+  });
+}
+
+function getPlaceIds(e) {
+  const titleElm = e.target.closest('.title');
+  const itemElms = (titleElm.nextElementSibling.children ? [...titleElm.nextElementSibling.children] : null);
+  if (!itemElms || itemElms.length < 2) return null;
+  return itemElms.map(item => item.id);
+}
+
+function createDirectionsPanel() {
+  if(elements.placeOverview) {
+    elements.placeOverview.style.display = 'none';
+  }
+  if(elements.placeDetails) {
+    elements.placeDetails.style.display = 'none';
+  }
+  const directionsPanel = document.createElement('div');
+  directionsPanel.id = 'directionsPanel';
+  const directionsActions = document.createElement('div');
+  directionsActions.className = 'place-actions';
+  const backBtn = createBackBtn();
+  directionsActions.appendChild(backBtn);
+  directionsPanel.appendChild(directionsActions);
+  elements.placeContainer.appendChild(directionsPanel);
+}
+
 function openInfowindow(place, marker) {
   const infowindow = new google.maps.InfoWindow({content: `<p>${place.name}</p>`});
   infowindow.open(map, marker);
@@ -185,21 +241,26 @@ async function showPlaceDetails(place, type) {
   const placeActions = document.createElement('div');
   placeActions.className = 'place-actions';
 
-  const backBtn = document.createElement('a');
-  backBtn.className = 'back';
-  backBtn.innerHTML = `<i class="material-icons">arrow_back</i>`;
+  const backBtn = createBackBtn();
   placeActions.appendChild(backBtn);
-  backBtn.addEventListener('click', loadInitPage);
 
   const saveBtn = document.createElement('a');
   saveBtn.className = 'heart';
   saveBtn.innerHTML = `<i class="material-icons">favorite</i>`;
   placeActions.appendChild(saveBtn);
-  saveBtn.addEventListener('click', () => addPlaceToPlanner(result));
+  saveBtn.addEventListener('click', () => planner.addPlaceToPlanner(place, type));
 
   placeDetails.appendChild(placeActions);
   elements.placeOverview.style.display = 'none';
   elements.placeContainer.appendChild(placeDetails);
+}
+
+function createBackBtn() {
+  const backBtn = document.createElement('a');
+  backBtn.className = 'back';
+  backBtn.innerHTML = `<i class="material-icons">arrow_back</i>`;
+  backBtn.addEventListener('click', loadInitPage);
+  return backBtn;
 }
 
 function getPlaceDetails(place) {
@@ -216,12 +277,8 @@ function getPlaceDetails(place) {
   });
 }
 
-export function loadInitPage(e) {
+function loadInitPage(e) {
   const targetLink = e.target.closest('a');
   targetLink.parentNode.parentNode.remove();
   elements.placeOverview.removeAttribute('style');
-}
-
-function addPlaceToPlanner(place) {
-  console.log(place);
 }

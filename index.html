@@ -19,13 +19,13 @@
     <form class="modal-content" id="init-form">
       <div class="input-city-container">
         <label for="input-city">City: </label>
-        <input type="text" name="input-city" id="input-city">
+        <input type="text" name="input-city" id="input-city" required>
       </div>
       <div class="input-date-container">
         <label for="start-date">From: </label>
-        <input type="date" name="start-date" id="start-date">
+        <input type="date" name="start-date" id="start-date" required>
         <label for="end-date">To: </label>
-        <input type="date" name="end-date" id="end-date">
+        <input type="date" name="end-date" id="end-date" required>
       </div>
       <button id="search-submit">Start Exploring</button>
     </form>
@@ -43,7 +43,7 @@
       </header>
 
       <div class="planner-content">
-        <div class="planner-box">
+        <div class="planner-box bucket">
           <div class="title"><p>Place Bucket</p></div>
           <div class="planner-list">
             <!-- <div class="list-item" draggable="true">
@@ -63,11 +63,11 @@
             <div class="list-item" draggable="true">
               <div class="icon icon-dining"><i class="material-icons">local_dining</i></div>
               <p class="place-name">Founding Farmers</p>
-            </div>
-          </div> -->
+            </div> -->
+          </div>
           </div>
         </div>
-        <div class="planner-box" id="8/19/2020">
+        <!-- <div class="planner-box" id="8/19/2020">
           <div class="title">
             <p>8/19/2020</p>
             <div class="weather">
@@ -87,12 +87,12 @@
           </div>
           <div class="planner-list"></div>
         </div>
-      </div>
+      </div> -->
     </section>
 
     <section class="place-container">
 
-      <div class="place-overview" style="display: none;">
+      <div class="place-overview">
         <div class="place-filter">
           <div class="filter-buttons">
             <li class="filter-li" id="see"><a class="btn btn-blue" href="#"><i class="material-icons">local_see</i>Site</a></li>
@@ -111,18 +111,18 @@
         <div id="place-num"></div>
   
         <div class="place-list">
-          <div id="1" class="place-card">
+          <!-- <div id="1" class="place-card">
             <div class="place-content"><div class="icon icon-see"><i class="material-icons">local_see</i></div><p class="place-name">Hilton Hotel</p><p class="place-address">Washington, D.C.</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner"></div></div> (1,000)</div></div><img class="place-img" src="https://via.placeholder.com/150" alt="Hilton Hotel photo">
           </div>
   
           <div id="2" class="place-card">
             <div class="place-content"><div class="icon icon-see"><i class="material-icons">local_see</i></div><p class="place-name">Hilton Hotel</p><p class="place-address">Washington, D.C.</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner"></div></div> (1,000)</div></div><img class="place-img" src="https://via.placeholder.com/150" alt="Hilton Hotel photo"></div>
           </div>
-        </div>
+        </div> -->
       </div>
 
-      <div class="place-details">
-        <div class="hero-photo"></div>
+      <!-- <div class="place-details"> -->
+        <!-- <div class="hero-photo"></div>
         <div class="photo-gallery">
           <a href="https://via.placeholder.com/150" target="_blank" rel="noopener noreferrer"><img src="https://via.placeholder.com/150"></a>
           <a href="https://via.placeholder.com/150" target="_blank" rel="noopener noreferrer"><img src="https://via.placeholder.com/150"></a>
@@ -204,12 +204,13 @@
           <a class="heart">
             <i class="material-icons">favorite</i>
           </a>
-        </div>
-      </div>
-      
+        </div> -->
+      <!-- </div> -->
     </section>
 
     <section id="map"></section>
+    <!-- <div id="directionsPanel" style="float:right;width:30%;height:100%"></div> -->
+
   </main>
   
 </body>

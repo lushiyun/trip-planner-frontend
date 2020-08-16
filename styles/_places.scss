@@ -1,4 +1,4 @@
-.place-overview, .place-details {
+.place-overview, .place-details, #directionsPanel {
   width: 100%;
   height: 100%;
   padding: 1rem;
@@ -10,7 +10,7 @@
   @include flex(column, flex-start, flex-start)
 }
 
-.place-details {
+.place-details, #directionsPanel {
   overflow-y: auto;
 }
 
@@ -277,4 +277,8 @@ h4 {
     box-shadow: none;
     background-color: darken($color-pink, 10%);
   }
+}
+
+#directionsPanel {
+  font-size: 1.4rem;
 }

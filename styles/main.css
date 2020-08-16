@@ -217,7 +217,7 @@
   padding: 10px 20px;
 }
 
-.place-overview, .place-details {
+.place-overview, .place-details, #directionsPanel {
   width: 100%;
   height: 100%;
   padding: 1rem;
@@ -241,7 +241,7 @@
           align-items: flex-start;
 }
 
-.place-details {
+.place-details, #directionsPanel {
   overflow-y: auto;
 }
 
@@ -650,8 +650,13 @@ h4 {
   background-color: #ce0051;
 }
 
+#directionsPanel {
+  font-size: 1.4rem;
+}
+
 .planner-content {
   width: 100%;
+  height: 100%;
   padding: 1rem;
   overflow-y: scroll;
 }
@@ -722,6 +727,10 @@ header {
   color: #ffffff;
   font-size: 1.6rem;
   font-weight: bold;
+}
+
+.title.clicked {
+  background-color: #2e2e2e;
 }
 
 .weather {
@@ -870,6 +879,19 @@ body, html {
 
 .planner-container {
   padding: 1.5rem .75rem 1.5rem 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .place-container {
