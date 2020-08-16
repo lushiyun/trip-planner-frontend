@@ -12,6 +12,12 @@ const submitInitForm = (e) => {
     // state.selectedTypes = Object.keys(googleMap.placeTypes);
     planner.getDates();
     planner.getWeather(38.9071923, -77.0368707);
+    // planner.getWeather(38.9071923, -77.0368707).then(planner.showDailyPlanners(weatherData));
+
+    // planner.getWeather(38.9071923, -77.0368707);
+    // planner.showDailyPlanners();
+    // planner.showDailyPlanners();
+    // planner.getWeather(38.9071923, -77.0368707);
     // loadMap();
     elements.initModal.style.display = 'none';
   //}
@@ -24,9 +30,7 @@ const getCity = () => {
   state.mapCenter = city.geometry.location;
 };
 
-
-
-const loadMap = async function() {
+const loadMap = async () => {
   for (const type of state.selectedTypes) {
     const results = await googleMap.getPlaces(state.mapCenter, 12000, type);
     results.forEach(place => googleMap.savePlace(place, type))
