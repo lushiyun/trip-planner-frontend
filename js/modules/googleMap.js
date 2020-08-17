@@ -289,6 +289,7 @@ function getPlaceDetails(place) {
 }
 
 function loadInitPage(e) {
+  debugger
   const targetLink = e.target.closest('a');
   targetLink.parentNode.parentNode.remove();
 
@@ -305,8 +306,7 @@ function loadInitPage(e) {
     const types = [...selectedLinks].map(link => link.parentNode.id);
     types.forEach(type => showMarkers(type));
   } else {
-    debugger
-    Object.values(markers).flat().forEach(marker => marker.setMap(map));
+    Object.keys(placeTypes).forEach(type => showMarkers(type));
   }
   
   Array.from(document.querySelectorAll('.title')).forEach(title => {
