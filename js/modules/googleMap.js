@@ -4,6 +4,8 @@ import * as GMStyles from './GMStyles.js';
 
 let map;
 let service;
+let directionsService;
+let directionsRenderer;
 const places = {};
 const markers = {};
 
@@ -122,8 +124,8 @@ export function renderRoute(e) {
 
   createDirectionsPanel();
 
-  const directionsService = new google.maps.DirectionsService();
-  const directionsRenderer = new google.maps.DirectionsRenderer();
+  directionsService = new google.maps.DirectionsService();
+  directionsRenderer = new google.maps.DirectionsRenderer();
   directionsRenderer.setMap(map);
   directionsRenderer.setPanel(directionsPanel);
 
@@ -151,7 +153,7 @@ function getPlaceIds(e) {
   const titleElm = e.target.closest('.title');
   const itemElms = (titleElm.nextElementSibling.children ? [...titleElm.nextElementSibling.children] : null);
   if (!itemElms || itemElms.length < 2) return null;
-  return itemElms.map(item => item.id);
+  return itemElms.map(item => item.dataset.placeId);
 }
 
 function createDirectionsPanel() {
@@ -159,7 +161,7 @@ function createDirectionsPanel() {
     elements.placeOverview.style.display = 'none';
   }
   if(elements.placeDetails) {
-    elements.placeDetails.style.display = 'none';
+    elements.placeDetails.remove();
   }
   const directionsPanel = document.createElement('div');
   directionsPanel.id = 'directionsPanel';
@@ -280,5 +282,11 @@ function getPlaceDetails(place) {
 function loadInitPage(e) {
   const targetLink = e.target.closest('a');
   targetLink.parentNode.parentNode.remove();
+  directionsRenderer.setMap(null);
   elements.placeOverview.removeAttribute('style');
+  clearMarkers();
+  elements.plannerBoxTitles.forEach(title => {
+    title.classList.remove('clicked');
+  })
+  Object.values(markers).flat().forEach(marker => marker.setMap(map));
 }

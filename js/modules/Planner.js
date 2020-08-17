@@ -61,7 +61,7 @@ const showDailyPlanners = (data) => {
     plannerList.addEventListener('dragover', sortAndDisplayItem);
 
     title.addEventListener('click', (e) => {
-      plannerBox.classList.add('clicked');  // TODO: add clicked styling
+      title.classList.add('clicked'); 
       googleMap.renderRoute(e);
     })
   })
@@ -70,10 +70,11 @@ const showDailyPlanners = (data) => {
 export const addPlaceToPlanner = (place, type) => {
   const placeItem = document.createElement('div');
   placeItem.className = 'list-item';
-  placeItem.id = place.place_id;
+  placeItem.setAttribute('data-place-id', place.place_id);
   placeItem.setAttribute('draggable', true);
   placeItem.innerHTML = `<div class="item-content"><div class="icon icon-${type}"><i class="material-icons">local_${type}</i></div><p class="place-name">${place.name}</p></div><div class="item-actions"><i class="material-icons delete">delete</i><i class="material-icons duplicate">add_box</i></div>`;
   elements.placeBucket.querySelector('.planner-list').appendChild(placeItem);
+  placeItem.addEventListener('click', applyItemActions);
 
   placeItem.addEventListener('dragstart', () => {
     placeItem.classList.add('dragging');
@@ -106,4 +107,20 @@ const getDragAfterElement = (container, y) => {
       return closest;
     }
   }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+const applyItemActions = (e) => {
+  if(e.target.classList.contains('delete')) {
+    e.target.parentNode.parentNode.remove();
+  } else if(e.target.classList.contains('duplicate')) {
+    const itemNode = e.target.parentNode.parentNode;
+    const clone = itemNode.cloneNode(true);
+    itemNode.after(clone);
+    clone.addEventListener('dragstart', () => {
+      clone.classList.add('dragging');
+    })
+    clone.addEventListener('dragend', () => {
+      clone.classList.remove('dragging');
+    })
+  }
 }

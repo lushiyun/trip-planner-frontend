@@ -68,7 +68,4 @@ document.addEventListener('DOMContentLoaded', () => {
   elements.initForm.addEventListener('submit', submitInitForm);
   elements.filterBtns.addEventListener('click', selectPlaceFilters);
   elements.filterActions.addEventListener('click', applyFilterAction);
-  // elements.filterActions.addEventListener('click', () => {
-  //   googleMap.renderRoute()
-  // });
 })

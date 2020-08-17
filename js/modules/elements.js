@@ -9,6 +9,8 @@ export const elements = {
 
   plannerContent: document.querySelector('.planner-content'),
   placeBucket: document.querySelector('.bucket'),
+  placeItem: document.querySelector('.list-item'),
+  plannerBoxTitles: document.querySelectorAll('.title'),
 
   placeContainer: document.querySelector('.place-container'),
   placeOverview: document.querySelector('.place-overview'),
