@@ -723,6 +723,10 @@ header {
   padding-left: 1rem;
 }
 
+.title:hover {
+  cursor: pointer;
+}
+
 .title p {
   color: #ffffff;
   font-size: 1.6rem;

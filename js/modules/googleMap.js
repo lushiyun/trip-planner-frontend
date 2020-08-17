@@ -122,8 +122,12 @@ export function renderRoute(e) {
   const placeIdArr = getPlaceIds(e);
   if(placeIdArr == null) return
 
-  createDirectionsPanel();
+  const directionsPanel = createDirectionsPanel();
 
+  if (directionsRenderer != null) {
+    directionsRenderer.setMap(null);
+    directionsRenderer = null;
+  }
   directionsService = new google.maps.DirectionsService();
   directionsRenderer = new google.maps.DirectionsRenderer();
   directionsRenderer.setMap(map);
@@ -142,6 +146,7 @@ export function renderRoute(e) {
 
   directionsService.route(request, function(result, status) {
     if (status == 'OK') {
+      clearMarkers();
       directionsRenderer.setDirections(result);
     } else {
       console.log(status);
@@ -157,11 +162,14 @@ function getPlaceIds(e) {
 }
 
 function createDirectionsPanel() {
-  if(elements.placeOverview) {
-    elements.placeOverview.style.display = 'none';
+  if(document.querySelector('.place-overview')) {
+    document.querySelector('.place-overview').style.display = 'none';
   }
-  if(elements.placeDetails) {
-    elements.placeDetails.remove();
+  if(document.querySelector('.place-details')) {
+    document.querySelector('.place-details').remove();
+  }
+  if(document.querySelector('#directionsPanel')) {
+    document.querySelector('#directionsPanel').remove();
   }
   const directionsPanel = document.createElement('div');
   directionsPanel.id = 'directionsPanel';
@@ -171,6 +179,7 @@ function createDirectionsPanel() {
   directionsActions.appendChild(backBtn);
   directionsPanel.appendChild(directionsActions);
   elements.placeContainer.appendChild(directionsPanel);
+  return directionsPanel;
 }
 
 function openInfowindow(place, marker) {
@@ -282,11 +291,25 @@ function getPlaceDetails(place) {
 function loadInitPage(e) {
   const targetLink = e.target.closest('a');
   targetLink.parentNode.parentNode.remove();
-  directionsRenderer.setMap(null);
+
+  if (directionsRenderer != null) {
+    directionsRenderer.setMap(null);
+    directionsRenderer = null;
+  }
+
   elements.placeOverview.removeAttribute('style');
+
   clearMarkers();
-  elements.plannerBoxTitles.forEach(title => {
+  const selectedLinks = document.querySelectorAll('.selected');
+  if(selectedLinks) {
+    const types = [...selectedLinks].map(link => link.parentNode.id);
+    types.forEach(type => showMarkers(type));
+  } else {
+    debugger
+    Object.values(markers).flat().forEach(marker => marker.setMap(map));
+  }
+  
+  Array.from(document.querySelectorAll('.title')).forEach(title => {
     title.classList.remove('clicked');
   })
-  Object.values(markers).flat().forEach(marker => marker.setMap(map));
 }

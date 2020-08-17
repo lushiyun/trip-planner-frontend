@@ -61,7 +61,10 @@ const showDailyPlanners = (data) => {
     plannerList.addEventListener('dragover', sortAndDisplayItem);
 
     title.addEventListener('click', (e) => {
-      title.classList.add('clicked'); 
+      Array.from(document.querySelectorAll('.title')).forEach(title => {
+        title.classList.remove('clicked');
+      })
+      title.classList.add('clicked');
       googleMap.renderRoute(e);
     })
   })

@@ -38,6 +38,9 @@ header {
   border-radius: 4px;
   min-height: 3.5rem;
   padding-left: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
   p {
     color: $color-white;
     font-size: 1.6rem;
