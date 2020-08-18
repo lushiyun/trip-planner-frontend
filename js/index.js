@@ -1,10 +1,24 @@
 import { elements } from './modules/elements.js';
-import * as googleMap from './modules/googleMap.js';
+import * as googleMap from './modules/Map.js';
 import * as planner from './modules/Planner.js'
 
 const state = {};
 
-const submitInitForm = (e) => {
+// INIT FORM CONTROLLER
+const searchBox = new google.maps.places.SearchBox(elements.cityInput);
+
+searchBox.addListener('places_changed', () => {
+  const city = searchBox.getPlaces()[0];
+  if(city === null) return
+  state.mapCenter = city.geometry.location;
+})
+
+elements.initForm.addEventListener('submit', e => {
+  e.preventDefault();
+  controlInit(e);
+})
+
+const controlInit = e => {
   if (!state.mapCenter) {
     alert('Something went wrong');
   } else {
@@ -18,12 +32,6 @@ const submitInitForm = (e) => {
   e.preventDefault();
 }
 
-const getCity = () => {
-  const city = googleMap.searchBox.getPlaces()[0];
-  if(city === null) return
-  state.mapCenter = city.geometry.location;
-};
-
 const loadMap = async () => {
   for (const type of state.selectedTypes) {
     const results = await googleMap.getPlaces(state.mapCenter, 8000, type);
@@ -35,42 +43,114 @@ const loadMap = async () => {
   googleMap.updatePlaceNumber(state.selectedTypes);
 }
 
-const selectPlaceFilters = (e) => {
+//PLACE CONTROLLER
+const selectPlaceFilters = e => {
   const filterLi = e.target.closest('.filter-li');
-  if(filterLi) {
-    filterLi.childNodes[0].classList.toggle('selected');
+  if(filterLi) filterLi.childNodes[0].classList.toggle('selected');
+}
+
+const updateTypeSelection = () => {
+  const selectedLinks = document.querySelectorAll('.selected');
+  if(selectedLinks) {
+    state.selectedTypes = [...selectedLinks].map(link => link.parentNode.id);
+  } else {
+    state.selectedTypes = Object.keys(googleMap.placeTypes);
   }
 }
 
-const applyFilterAction = (e) => {
+const applyFilterAction = e => {
   const applyAction = e.target.closest('#apply-filter');
   const clearAction = e.target.closest('#clear-filter');
   if(!applyAction && !clearAction) return;
 
-  const liArr = Array.from(e.target.parentNode.previousElementSibling.children);
-  if(applyAction) {
-    const selectedFilters = liArr.filter(li => li.children[0].classList.contains('selected'));
-    state.selectedTypes = selectedFilters.map(li => li.id);
-  } else {
-    liArr.forEach(li => {li.children[0].classList.remove('selected')});
-    state.selectedTypes = Object.keys(googleMap.placeTypes);
-  }
+  updateTypeSelection();
   googleMap.clearMarkers();
   state.selectedTypes.forEach(type => googleMap.showMarkers(type));
-  googleMap.clearCard();
+  googleMap.clearCards();
   state.selectedTypes.forEach(type => googleMap.createCard(type));
   googleMap.updatePlaceNumber(state.selectedTypes);
   e.preventDefault();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  googleMap.searchBox.addListener('places_changed', getCity);
-  elements.initForm.addEventListener('submit', submitInitForm);
-  elements.filterBtns.addEventListener('click', selectPlaceFilters);
-  elements.filterActions.addEventListener('click', applyFilterAction);
-  elements.filterActions.addEventListener('click', () => {
-    const selectedLinks = document.querySelectorAll('.selected');
-    console.log()
-  });
+const loadInitPage = () => {
+  googleMap.removePlaceDetails();
+  googleMap.removeDirectionsPanel();
+  googleMap.displayPlaceOverview();
 
+  googleMap.removeDirectionsRenderer();
+  googleMap.clearMarkers();
+  state.selectedTypes.forEach(type => googleMap.showMarkers(type));
+
+  removeAllClickedStyle();
+}
+
+const addPlaceToPlanner = e => {
+  const placeDetails = document.querySelector('.place-details');
+  const placeId = placeDetails.id;
+  const introHTML = placeDetails.querySelector('.place-intro').innerHTML;
+  const placeItem = document.createElement('div');
+  placeItem.className = 'list-item';
+  placeItem.setAttribute('data-place-id', placeId);
+  placeItem.setAttribute('draggable', true);
+  placeItem.innerHTML = `<div class="item-content">${introHTML}</div><div class="item-actions"><i class="material-icons delete">delete</i><i class="material-icons duplicate">add_box</i></div>`;
+  elements.placeBucket.querySelector('.planner-list').appendChild(placeItem);
+}
+
+elements.placeContainer.addEventListener('click', e => {
+  if(e.target.closest('.filter-buttons')) {
+    selectPlaceFilters(e);
+  } else if(e.target.closest('#filter-actions')) {
+    applyFilterAction(e);
+  } else if(e.target.closest('.back')) {
+    loadInitPage();
+  } else if(e.target.closest('.heart')) {
+    addPlaceToPlanner(e);
+  }
+})
+
+// PLANNER CONTROLLER
+const addClickedStyle = elm => elm.classList.add('clicked');
+
+const removeClickedStyle = elm => elm.classList.remove('clicked');
+
+const removeAllClickedStyle = () => {
+  Array.from(document.querySelectorAll('.title')).forEach(title => removeClickedStyle(title));
+}
+
+const getPlaceIds = e => {
+  const titleElm = e.target.closest('.title');
+  const itemElms = (titleElm.nextElementSibling.children ? [...titleElm.nextElementSibling.children] : null);
+  if (!itemElms || itemElms.length < 2) return null;
+  return itemElms.map(item => item.dataset.placeId);
+}
+
+const duplicateListItem = e => {
+  const itemNode = e.target.parentNode.parentNode;
+  const clone = itemNode.cloneNode(true);
+  itemNode.after(clone);
+}
+
+elements.plannerContent.addEventListener('click', e => {
+  if(e.target.classList.contains('delete')) {
+    e.target.parentNode.parentNode.remove();
+  } else if(e.target.classList.contains('duplicate')) {
+    duplicateListItem(e);
+  } else if(e.target.classList.contains('title')) {
+    removeAllClickedStyle();
+    addClickedStyle(e.target);
+    const placeIds = getPlaceIds(e);
+    if(placeIds) googleMap.renderRoute(placeIds);
+  }
+})
+
+elements.plannerContent.addEventListener('dragstart', e => {
+  if(e.target.classList.contains('list-item')) {
+    e.target.classList.add('dragging');
+  }
+})
+
+elements.plannerContent.addEventListener('dragend', e => {
+  if(e.target.classList.contains('list-item')) {
+    e.target.classList.remove('dragging');
+  }
 })
