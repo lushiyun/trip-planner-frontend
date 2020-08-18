@@ -699,8 +699,24 @@ header {
 
 .planner-box {
   width: 100%;
-  border-bottom: 2px dotted #616161;
   margin-bottom: 2rem;
+  background-color: #ffffff;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.planner-box:hover {
+  -webkit-box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+
+.planner-box:active {
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .title {
@@ -718,13 +734,9 @@ header {
       -ms-flex-align: center;
           align-items: center;
   background-color: #949494;
-  border-radius: 4px;
+  border-radius: 4px 4px 0 0;
   min-height: 3.5rem;
   padding-left: 1rem;
-}
-
-.title:hover {
-  cursor: pointer;
 }
 
 .title p {
@@ -734,7 +746,7 @@ header {
 }
 
 .title.clicked {
-  background-color: #2e2e2e;
+  background-color: #FF0266;
 }
 
 .weather {

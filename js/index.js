@@ -130,19 +130,6 @@ const duplicateListItem = e => {
   itemNode.after(clone);
 }
 
-elements.plannerContent.addEventListener('click', e => {
-  if(e.target.classList.contains('delete')) {
-    e.target.parentNode.parentNode.remove();
-  } else if(e.target.classList.contains('duplicate')) {
-    duplicateListItem(e);
-  } else if(e.target.classList.contains('title')) {
-    removeAllClickedStyle();
-    addClickedStyle(e.target);
-    const placeIds = getPlaceIds(e);
-    if(placeIds) googleMap.renderRoute(placeIds);
-  }
-})
-
 elements.plannerContent.addEventListener('dragstart', e => {
   if(e.target.classList.contains('list-item')) {
     e.target.classList.add('dragging');
@@ -152,5 +139,19 @@ elements.plannerContent.addEventListener('dragstart', e => {
 elements.plannerContent.addEventListener('dragend', e => {
   if(e.target.classList.contains('list-item')) {
     e.target.classList.remove('dragging');
+  }
+})
+
+elements.plannerContent.addEventListener('click', e => {
+  if(e.target.classList.contains('delete')) {
+    e.target.parentNode.parentNode.remove();
+  } else if(e.target.classList.contains('duplicate')) {
+    duplicateListItem(e);
+  } else if(e.target.closest('.planner-box')) {
+    const selectedBox = e.target.closest('.planner-box');
+    removeAllClickedStyle();
+    addClickedStyle(selectedBox.querySelector('.title'));
+    const placeIds = getPlaceIds(e);
+    if(placeIds) googleMap.renderRoute(placeIds);
   }
 })

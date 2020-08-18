@@ -238,6 +238,7 @@ function createDirectionsPanel() {
 }
 
 export function renderRoute(placeIds) {
+  removeDirectionsRenderer();
   directionsService = new google.maps.DirectionsService();
   directionsRenderer = new google.maps.DirectionsRenderer();
 
@@ -255,10 +256,10 @@ export function renderRoute(placeIds) {
   directionsService.route(request, function(result, status) {
     if (status == 'OK') {
       clearMarkers();
-      removeDirectionsRenderer();
       directionsRenderer.setMap(map);
       hidePlaceOverview();
       removePlaceDetails();
+      removeDirectionsPanel();
       const directionsPanel = createDirectionsPanel();
       directionsRenderer.setPanel(directionsPanel);
       directionsRenderer.setDirections(result);
