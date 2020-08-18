@@ -79,6 +79,7 @@ const loadInitPage = () => {
 
   googleMap.removeDirectionsRenderer();
   googleMap.clearMarkers();
+  googleMap.initMap(state.mapCenter);
   state.selectedTypes.forEach(type => googleMap.showMarkers(type));
 
   removeAllClickedStyle();
