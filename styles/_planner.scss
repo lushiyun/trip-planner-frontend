@@ -97,6 +97,7 @@ header {
 }
 
 .item-actions {
+  @include flex(row, center, center);
   color: $color-grey;
   .delete:hover, .duplicate:hover {
     color: $color-dark;
