@@ -296,6 +296,6 @@ export function clearPlaces() {
   places = {};
 }
 
-export function clearMarkers() {
+export function clearMarkerRecords() {
   markers = {};
 }

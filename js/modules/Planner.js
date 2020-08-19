@@ -56,35 +56,8 @@ const showDailyPlanners = (data) => {
     plannerList.className = 'planner-list';
     plannerBox.appendChild(plannerList);
     elements.plannerContent.appendChild(plannerBox);
-    elements.plannerContent.innerHTML += `<div class="planner-actions"><a class="clear" title="Reset"><i class="material-icons">layers_clear</i></a><a class="save" title="Save"><i class="material-icons">save</i></a></div>`
-
-    plannerList.addEventListener('dragover', sortAndDisplayItem);
   })
-}
-
-const sortAndDisplayItem = (e) => {
-  const container = e.target.closest('.planner-list');
-  const item = document.querySelector('.dragging');
-  const afterElement = getDragAfterElement(container, e.clientY);
-  if(afterElement) {
-    container.insertBefore(item, afterElement);
-  } else {
-    container.appendChild(item);
-  }
-  e.preventDefault();
-}
-
-const getDragAfterElement = (container, y) => {
-  const draggableElms = [...container.querySelectorAll('.list-item:not(.dragging)')];
-  return draggableElms.reduce((closest, child) => {
-    const rect = child.getBoundingClientRect();
-    const offset = y - rect.top - rect.height / 2;
-    if(offset < 0 && offset > closest.offset) {
-      return { offset: offset, element: child };
-    } else {
-      return closest;
-    }
-  }, { offset: Number.NEGATIVE_INFINITY }).element;
+  elements.plannerContent.innerHTML += `<div class="planner-actions"><a class="clear" title="Reset"><i class="material-icons">layers_clear</i></a><a class="save" title="Save"><i class="material-icons">save</i></a></div>`
 }
 
 export const clearDailyPlanners = () => {
