@@ -291,3 +291,11 @@ export function removeDirectionsRenderer() {
     directionsRenderer = null;
   }
 }
+
+export function clearPlaces() {
+  places = {};
+}
+
+export function clearMarkers() {
+  markers = {};
+}

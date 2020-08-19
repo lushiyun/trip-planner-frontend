@@ -242,7 +242,7 @@ h4 {
   align-self: flex-end;
 }
 
-.place-actions {
+.place-actions, .planner-actions {
   position: sticky;
   bottom: 0;
   @include flex(row, center, center);
@@ -257,7 +257,7 @@ h4 {
   }
 }
 
-.back {
+.back, .clear {
   background-color: $color-blue;
   &:hover {
     cursor: pointer;
@@ -268,7 +268,7 @@ h4 {
   }
 }
 
-.heart {
+.heart, .save {
   background-color: $color-pink;
   &:hover {
     cursor: pointer;

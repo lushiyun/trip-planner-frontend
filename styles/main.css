@@ -579,7 +579,7 @@ h4 {
       align-self: flex-end;
 }
 
-.place-actions {
+.place-actions, .planner-actions {
   position: -webkit-sticky;
   position: sticky;
   bottom: 0;
@@ -598,7 +598,7 @@ h4 {
           align-items: center;
 }
 
-.place-actions a {
+.place-actions a, .planner-actions a {
   color: #ffffff;
   margin: 0 .5rem;
   padding: 1rem;
@@ -622,29 +622,29 @@ h4 {
           box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 
-.back {
+.back, .clear {
   background-color: #0336FF;
 }
 
-.back:hover {
+.back:hover, .clear:hover {
   cursor: pointer;
 }
 
-.back:active {
+.back:active, .clear:active {
   -webkit-box-shadow: none;
           box-shadow: none;
   background-color: #002acf;
 }
 
-.heart {
+.heart, .save {
   background-color: #FF0266;
 }
 
-.heart:hover {
+.heart:hover, .save:hover {
   cursor: pointer;
 }
 
-.heart:active {
+.heart:active, .save:active {
   -webkit-box-shadow: none;
           box-shadow: none;
   background-color: #ce0051;
@@ -852,6 +852,10 @@ header {
 
 .dragging {
   opacity: .5;
+}
+
+.planner-actions {
+  width: 100%;
 }
 
 *, *::before, *::after {

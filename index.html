@@ -15,23 +15,24 @@
 </head>
 
 <body>
-  <section class="modal" id="search-modal" style="display: none;">  
-    <form class="modal-content" id="init-form">
-      <div class="input-city-container">
-        <label for="input-city">City: </label>
-        <input type="text" name="input-city" id="input-city" required>
-      </div>
-      <div class="input-date-container">
-        <label for="start-date">From: </label>
-        <input type="date" name="start-date" id="start-date" required>
-        <label for="end-date">To: </label>
-        <input type="date" name="end-date" id="end-date" required>
-      </div>
-      <button id="search-submit">Start Exploring</button>
-    </form>
+  <section class="modal" id="search-modal" style="display: none;">
+    <div class="modal-content">
+      <form id="init-form">
+        <div class="input-city-container">
+          <label for="input-city">City: </label>
+          <input type="text" name="input-city" id="input-city" required>
+        </div>
+        <div class="input-date-container">
+          <label for="start-date">From: </label>
+          <input type="date" name="start-date" id="start-date" required>
+          <label for="end-date">To: </label>
+          <input type="date" name="end-date" id="end-date" required>
+        </div>
+        <button id="search-submit">Start Exploring</button>
+      </form>
+      <div class="modal-panel">
 
-    <div class="intro-panel">
-
+      </div>
     </div>
   </section>
 
@@ -39,13 +40,23 @@
 
     <section class="planner-container">
       <header>
-        <div class="logo"><i class="material-icons">loyalty</i><span>Triplanner</span></div>
+        <div class="logo">
+          <i class="material-icons">loyalty</i><span>Triplanner</span>
+        </div>
       </header>
       <div class="planner-content">
         <div class="planner-box bucket">
           <div class="title"><p>Place Bucket</p></div>
           <div class="planner-list">
           </div>
+        </div>
+        <div class="planner-actions">
+          <a class="clear" title="Reset">
+            <i class="material-icons">layers_clear</i>
+          </a>
+          <a class="save" title="Save">
+            <i class="material-icons">save</i>
+          </a>
         </div>
       </div>
     </section>

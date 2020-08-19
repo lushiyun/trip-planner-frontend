@@ -27,6 +27,7 @@ const controlInit = e => {
     state.selectedTypes = Object.keys(googleMap.placeTypes);
     loadMap();
     planner.getWeather(state.mapCenter.lat(), state.mapCenter.lng());
+    elements.initForm.reset();
     elements.initModal.style.display = 'none';
   }
   e.preventDefault();
@@ -47,6 +48,12 @@ const loadMap = async () => {
 const selectPlaceFilters = e => {
   const filterLi = e.target.closest('.filter-li');
   if(filterLi) filterLi.childNodes[0].classList.toggle('selected');
+}
+
+const clearFilterSelection = () => {
+  document.querySelectorAll('.selected').forEach(filter => {
+    filter.classList.remove('selected');
+  })
 }
 
 const updateTypeSelection = () => {
@@ -154,5 +161,17 @@ elements.plannerContent.addEventListener('click', e => {
     addClickedStyle(selectedBox.querySelector('.title'));
     const placeIds = getPlaceIds(e);
     if(placeIds) googleMap.renderRoute(placeIds);
+  } else if(e.target.closest('.clear')) {
+    planner.clearDailyPlanners();
+    planner.clearPlaceItems;
+    planner.clearDateRange;
+    clearFilterSelection();
+    googleMap.clearPlaceNumber();
+    googleMap.clearCards();
+    googleMap.clearPlaces();
+    googleMap.clearMarkers();
+    elements.initModal.style.display = 'block';
+  } else if(e.target.closest('.save')) {
+    
   }
 })

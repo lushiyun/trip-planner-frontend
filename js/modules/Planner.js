@@ -37,7 +37,7 @@ const showDailyPlanners = (data) => {
 
   dateRange.forEach(date => {
     const plannerBox = document.createElement('div');
-    plannerBox.className = 'planner-box';
+    plannerBox.className = 'planner-box daily';
     plannerBox.id = date;
 
     const title = document.createElement('div');
@@ -56,6 +56,7 @@ const showDailyPlanners = (data) => {
     plannerList.className = 'planner-list';
     plannerBox.appendChild(plannerList);
     elements.plannerContent.appendChild(plannerBox);
+    elements.plannerContent.innerHTML += `<div class="planner-actions"><a class="clear" title="Reset"><i class="material-icons">layers_clear</i></a><a class="save" title="Save"><i class="material-icons">save</i></a></div>`
 
     plannerList.addEventListener('dragover', sortAndDisplayItem);
   })
@@ -84,4 +85,16 @@ const getDragAfterElement = (container, y) => {
       return closest;
     }
   }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+export const clearDailyPlanners = () => {
+  document.querySelectorAll('.daily').forEach(dailyPlanner => dailyPlanner.remove());
+}
+
+export const clearPlaceItems = () => {
+  document.querySelectorAll('.list-item').forEach(placeItem => placeItem.remove());
+}
+
+export const clearDateRange = () => {
+  dateRange = [];
 }
