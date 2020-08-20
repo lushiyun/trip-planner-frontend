@@ -199,7 +199,7 @@
 
 .modal {
   position: fixed;
-  z-index: 999;
+  z-index: 5;
   left: 0;
   top: 0;
   height: 100%;
@@ -209,12 +209,105 @@
 }
 
 .modal-content {
-  background: #ffffff;
-  margin: 20% auto;
-  width: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #eeaeca;
+  background: linear-gradient(70deg, #eeaeca 0%, #94bbe9 100%);
+  position: relative;
+  margin: 15% auto;
+  width: 40%;
+  min-width: 450px;
+  border-radius: 6px;
   -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
           box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
-  padding: 10px 20px;
+  padding: 1rem 5rem;
+  z-index: 999;
+}
+
+#init-form {
+  font-size: 1.4rem;
+  padding: 2rem;
+  width: 45%;
+}
+
+#init-form label {
+  display: block;
+  margin: 0 0 1rem;
+  color: #191924;
+  text-transform: uppercase;
+}
+
+#init-form input {
+  outline: none;
+  display: block;
+  background: #f4f4f4;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  padding: 1.2rem 2rem;
+  margin-bottom: 2rem;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+
+#init-form input:focus {
+  color: #616161;
+}
+
+#init-form button {
+  outline: none;
+  background: #ffffff;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  padding: 1.2rem 2rem;
+  color: #191924;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+  margin-bottom: 2rem;
+}
+
+#init-form button:hover {
+  font-weight: bold;
+}
+
+#init-form a {
+  color: #ffffff;
+  -webkit-transition: .3s ease;
+  transition: .3s ease;
+}
+
+#init-form a:hover {
+  font-weight: bold;
+}
+
+.intro-language {
+  width: 45%;
+}
+
+.intro-language h1 {
+  font-weight: bold;
+  font-size: 2.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.intro-language p {
+  font-size: 1.4rem;
+  color: #616161;
+  margin-bottom: .75rem;
 }
 
 .place-overview, .place-details, #directionsPanel {

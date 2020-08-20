@@ -1,19 +1,90 @@
 .modal {
   position: fixed;
-  z-index: 999;
+  z-index: 5;
   left: 0;
   top: 0;
   height: 100%;
   width: 100%;
   overflow: auto;
   background: rgba(0, 0, 0, 0.7);
-  // display: none;
 }
 
 .modal-content {
-  background: $color-white;
-  margin: 20% auto;
-  width: 70%;
+  @include flex(row, space-between, center);
+  // background: rgb(131,58,180);
+  // background: linear-gradient(30deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  background: rgb(238,174,202);
+  background: linear-gradient(70deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  position: relative;
+  margin: 15% auto;
+  width: 40%;
+  min-width: 450px;
+  border-radius: 6px;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
-  padding: 10px 20px;
+  padding: 1rem 5rem;
+  z-index: 999;
+}
+
+#init-form {
+  font-size: 1.4rem;
+  padding: 2rem;
+  width: 45%;
+  label {
+    display: block;
+    margin: 0 0 1rem;
+    color: $color-dark;
+    text-transform: uppercase;
+  }
+  input {
+    outline: none;
+    display: block;
+    background: $color-light;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding: 1.2rem 2rem;
+    margin-bottom: 2rem;;
+    transition: .3s ease;
+    &:focus {
+      color: $color-grey;
+    }
+  }
+  button {
+    outline: none;
+    background: $color-white;
+    width: 100%;
+    border: 0;
+    border-radius: 4px;
+    padding: 1.2rem 2rem;
+    color: $color-dark;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: .3s ease;
+    margin-bottom: 2rem;
+    &:hover {
+      font-weight: bold;
+    }
+  }
+  a {
+    color: $color-white;
+    transition: .3s ease;
+    &:hover {
+      font-weight: bold;
+    }
+  }
+}
+
+.intro-language {
+  width: 45%;
+  h1 {
+    font-weight: bold;
+    font-size: 2.2rem;
+    margin-bottom: 2.5rem;
+  }
+  p {
+    font-size: 1.4rem;
+    color: $color-grey;
+    margin-bottom: .75rem;
+  }
+  
 }

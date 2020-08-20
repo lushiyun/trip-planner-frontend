@@ -10,6 +10,7 @@ const searchBox = new google.maps.places.SearchBox(elements.cityInput);
 searchBox.addListener('places_changed', () => {
   const city = searchBox.getPlaces()[0];
   if(city === null) return
+  state.cityName = city.name;
   state.mapCenter = city.geometry.location;
 })
 
@@ -149,6 +150,8 @@ elements.plannerContent.addEventListener('click', e => {
     addClickedStyle(selectedBox.querySelector('.title'));
     const placeIds = getPlaceIds(e);
     if(placeIds) googleMap.renderRoute(placeIds);
+  } else if(e.target.closest('.save')) {
+    console.log(e.target);
   }
   // } else if(e.target.closest('.clear')) {
   //   planner.clearDailyPlanners();
