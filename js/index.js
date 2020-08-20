@@ -4,7 +4,7 @@ import * as planner from './modules/Planner.js';
 import TripAdapter from './modules/tripAdapter.js';
 
 const state = {};
-const tripAdapter = new TripAdapter();
+// const tripAdapter = new TripAdapter();
 
 // INIT FORM CONTROLLER
 const searchBox = new google.maps.places.SearchBox(elements.cityInput);
@@ -100,6 +100,10 @@ const applyFilterAction = e => {
   const clearAction = e.target.closest('#clear-filter');
   if(!applyAction && !clearAction) return;
 
+  if(clearAction) {
+    clearFilterSelection();
+  }
+  
   updateTypeSelection();
   googleMap.clearMarkers();
   state.selectedTypes.forEach(type => googleMap.showMarkers(type));
@@ -179,10 +183,11 @@ elements.plannerContent.addEventListener('click', e => {
     addClickedStyle(selectedBox.querySelector('.title'));
     const placeIds = getPlaceIds(e);
     if(placeIds) googleMap.renderRoute(placeIds);
-  } else if(e.target.closest('.save')) {
-    const tripObj = createTripObj();
-    tripAdapter.newTrip(tripObj);
   }
+  // } else if(e.target.closest('.save')) {
+  //   const tripObj = createTripObj();
+  //   tripAdapter.newTrip(tripObj);
+  // }
   // } else if(e.target.closest('.clear')) {
   //   planner.clearDailyPlanners();
   //   planner.clearPlaceItems;
