@@ -42,7 +42,7 @@ const showDailyPlanners = (data) => {
 
     const title = document.createElement('div');
     title.className = 'title';
-    title.innerHTML += `<p>${date}</p>`;
+    title.innerHTML += `<p class="date">${date}</p>`;
     const weatherInfo = weatherData[date];
     if(weatherInfo) {
       const weatherDiv = document.createElement('div');

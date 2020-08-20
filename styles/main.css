@@ -209,6 +209,20 @@
 }
 
 .modal-content {
+  background: #eeaeca;
+  background: linear-gradient(70deg, #eeaeca 0%, #94bbe9 100%);
+  position: relative;
+  margin: 15% auto;
+  width: 40%;
+  min-width: 450px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+          box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  padding: 1rem 5rem;
+  z-index: 999;
+}
+
+.init-content-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -222,17 +236,6 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: #eeaeca;
-  background: linear-gradient(70deg, #eeaeca 0%, #94bbe9 100%);
-  position: relative;
-  margin: 15% auto;
-  width: 40%;
-  min-width: 450px;
-  border-radius: 6px;
-  -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
-          box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
-  padding: 1rem 5rem;
-  z-index: 999;
 }
 
 #init-form {
@@ -259,10 +262,6 @@
   margin-bottom: 2rem;
   -webkit-transition: .3s ease;
   transition: .3s ease;
-}
-
-#init-form input:focus {
-  color: #616161;
 }
 
 #init-form button {
@@ -292,6 +291,7 @@
 
 #init-form a:hover {
   font-weight: bold;
+  cursor: pointer;
 }
 
 .intro-language {
@@ -308,6 +308,26 @@
   font-size: 1.4rem;
   color: #616161;
   margin-bottom: .75rem;
+}
+
+.itinerary-container {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.itinerary-container li {
+  margin-bottom: 1rem;
+}
+
+.itinerary-container a {
+  color: #ffffff;
+  cursor: pointer;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.itinerary-container a:hover {
+  font-weight: bold;
 }
 
 .place-overview, .place-details, #directionsPanel {

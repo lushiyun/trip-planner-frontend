@@ -10,7 +10,6 @@
 }
 
 .modal-content {
-  @include flex(row, space-between, center);
   // background: rgb(131,58,180);
   // background: linear-gradient(30deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
   background: rgb(238,174,202);
@@ -23,6 +22,10 @@
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
   padding: 1rem 5rem;
   z-index: 999;
+}
+
+.init-content-container {
+  @include flex(row, space-between, center);
 }
 
 #init-form {
@@ -45,9 +48,6 @@
     padding: 1.2rem 2rem;
     margin-bottom: 2rem;;
     transition: .3s ease;
-    &:focus {
-      color: $color-grey;
-    }
   }
   button {
     outline: none;
@@ -70,6 +70,7 @@
     transition: .3s ease;
     &:hover {
       font-weight: bold;
+      cursor: pointer;
     }
   }
 }
@@ -86,5 +87,20 @@
     color: $color-grey;
     margin-bottom: .75rem;
   }
-  
+}
+
+.itinerary-container {
+  font-size: 1.6rem;
+  text-align: center;
+  li {
+    margin-bottom: 1rem;
+  }
+  a {
+    color: $color-white;
+    cursor: pointer;
+    transition: all .3s ease;
+    &:hover {
+      font-weight: bold;
+    }
+  }
 }

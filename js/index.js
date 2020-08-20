@@ -1,8 +1,10 @@
 import { elements } from './modules/elements.js';
 import * as googleMap from './modules/Map.js';
-import * as planner from './modules/Planner.js'
+import * as planner from './modules/Planner.js';
+import TripAdapter from './modules/tripAdapter.js';
 
 const state = {};
+const tripAdapter = new TripAdapter();
 
 // INIT FORM CONTROLLER
 const searchBox = new google.maps.places.SearchBox(elements.cityInput);
@@ -14,10 +16,37 @@ searchBox.addListener('places_changed', () => {
   state.mapCenter = city.geometry.location;
 })
 
-elements.initForm.addEventListener('submit', e => {
+document.querySelector('#search-submit').addEventListener('click', e => {
   e.preventDefault();
   controlInit(e);
 })
+
+elements.initModal.addEventListener('click', e => {
+  if(e.target.id === 'show-itineraries') {
+    hideInitContentContainer();
+    showItineraryContainer();
+  } else if(e.target.id === 'itinerary-back') {
+    hideItineraryContainer();
+    showInitContentContainer();
+  }
+  e.preventDefault();
+})
+
+const hideItineraryContainer = () => {
+  document.querySelector('.itinerary-container').style.display = 'none';
+}
+
+const showItineraryContainer = () => {
+  document.querySelector('.itinerary-container').removeAttribute('style');
+}
+
+const hideInitContentContainer = () => {
+  document.querySelector('.init-content-container').style.display = 'none';
+}
+
+const showInitContentContainer = () => {
+  document.querySelector('.init-content-container').removeAttribute('style');
+}
 
 const controlInit = e => {
   if (!state.mapCenter) {
@@ -151,7 +180,8 @@ elements.plannerContent.addEventListener('click', e => {
     const placeIds = getPlaceIds(e);
     if(placeIds) googleMap.renderRoute(placeIds);
   } else if(e.target.closest('.save')) {
-    console.log(e.target);
+    const tripObj = createTripObj();
+    tripAdapter.newTrip(tripObj);
   }
   // } else if(e.target.closest('.clear')) {
   //   planner.clearDailyPlanners();
@@ -209,4 +239,29 @@ const getDragAfterElement = (container, y) => {
       return closest;
     }
   }, { offset: Number.NEGATIVE_INFINITY }).element;
+}
+
+const createTripObj = () => {
+  const days_attributes = [...document.querySelectorAll('.daily')].map(plannerBox => {
+    const dateStr = plannerBox.querySelector('.date').innerText;
+    const date = new Date(dateStr).toUTCString();
+
+    const places_attributes = [...plannerBox.querySelectorAll('.list-item')].map(placeItem => {
+      const name = placeItem.querySelector('.place-name').innerText;
+      const place_id = placeItem.dataset.placeId;
+      const category = placeItem.querySelector('.material-icons').innerText.split('_')[1];
+      return {name, place_id, category};
+    })
+
+    return { date, places_attributes };
+  })
+  debugger
+
+  const city = state.cityName;
+  const lat = state.mapCenter.lat();
+  const lng = state.mapCenter.lng();
+
+  return {
+    trip: { city, lat, lng, days_attributes }
+  };
 }

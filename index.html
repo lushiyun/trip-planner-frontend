@@ -17,26 +17,36 @@
 <body>
   <section class="modal" id="search-modal">
     <div class="modal-content">
-      <div class="intro-language">
-        <h1>Discover awesome places in your destination & plan your trip by the day</h1>
-        <p>Explore popular places on the map for sightseeing, food, drinks and more</p>
-        <p>Daily planner with weather forecast</p>
-        <p>Drag and drop places in your planner for map routing</p>
+      <div class="init-content-container" style="display: none;">
+        <div class="intro-language">
+          <h1>Discover awesome places in your destination & plan your trip by the day</h1>
+          <p>Explore popular places on the map for sightseeing, food, drinks and more</p>
+          <p>Daily planner with weather forecast</p>
+          <p>Drag and drop places in your planner for map routing</p>
+        </div>
+        <form id="init-form">
+          <div class="input-city-container">
+            <label for="input-city">City: </label>
+            <input type="text" name="input-city" id="input-city" required>
+          </div>
+          <div class="input-date-container">
+            <label for="start-date">From: </label>
+            <input type="date" name="start-date" id="start-date" required>
+            <label for="end-date">To: </label>
+            <input type="date" name="end-date" id="end-date" required>
+          </div>
+          <button id="search-submit">Start Exploring</button>
+          <div><a id='show-itineraries'>Check out existing itineraries</a></div>
+        </form>
       </div>
-      <form id="init-form">
-        <div class="input-city-container">
-          <label for="input-city">City: </label>
-          <input type="text" name="input-city" id="input-city" required>
-        </div>
-        <div class="input-date-container">
-          <label for="start-date">From: </label>
-          <input type="date" name="start-date" id="start-date" required>
-          <label for="end-date">To: </label>
-          <input type="date" name="end-date" id="end-date" required>
-        </div>
-        <button id="search-submit">Start Exploring</button>
-        <div><a href="#">Check out existing itineraries</a></div>
-      </form>
+      <div class="itinerary-container">
+        <ul>
+          <li>Washington | 8/19/2020 - 8/22/2020</li>
+          <li>Washington | 8/19/2020 - 8/22/2020</li>
+          <li>Washington | 8/19/2020 - 8/22/2020</li>
+        </ul>
+        <a id="itinerary-back">Back</a>
+      </div>
     </div>
   </section>
 
