@@ -23,7 +23,9 @@
 }
 
 header {
+  width: 100%;
   margin-bottom: 2rem;
+  @include flex(row, space-between, center);
 }
 
 .planner-box {

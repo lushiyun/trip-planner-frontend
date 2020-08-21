@@ -104,3 +104,10 @@
     }
   }
 }
+
+.trip-itinerary {
+  cursor: pointer;
+  &:hover {
+    color: $color-white;
+  }
+}

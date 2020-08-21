@@ -5,8 +5,8 @@ let map;
 let service;
 let directionsService;
 let directionsRenderer;
-const places = {};
-const markers = {};
+export const places = {};
+export const markers = {};
 
 export const placeTypes = {
   see: 'tourist_attraction',

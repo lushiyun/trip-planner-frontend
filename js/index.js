@@ -4,7 +4,13 @@ import * as planner from './modules/Planner.js';
 import TripAdapter from './modules/tripAdapter.js';
 
 const state = {};
-// const tripAdapter = new TripAdapter();
+const tripAdapter = new TripAdapter();
+
+document.addEventListener('DOMContentLoaded', () => {
+  hideItineraryContainer();
+  showInitContentContainer();
+  tripAdapter.fetchTrips();
+})
 
 // INIT FORM CONTROLLER
 const searchBox = new google.maps.places.SearchBox(elements.cityInput);
@@ -21,6 +27,14 @@ document.querySelector('#search-submit').addEventListener('click', e => {
   controlInit(e);
 })
 
+document.addEventListener('click', e => {
+  if(e.target.className === 'show-itineraries') {
+
+    hideInitContentContainer();
+    showItineraryContainer();
+  }
+})
+
 elements.initModal.addEventListener('click', e => {
   if(e.target.id === 'show-itineraries') {
     hideInitContentContainer();
@@ -31,6 +45,22 @@ elements.initModal.addEventListener('click', e => {
   }
   e.preventDefault();
 })
+
+const hideItem = elem => {
+  elem.style.display = 'none';
+}
+
+const showItem = elem => {
+  elem.removeAttribute('style');
+}
+
+const hideInitModal = () => {
+  document.querySelector('#search-modal').style.display = 'none';
+}
+
+const showInitModal = () => {
+  document.querySelector('#search-modal').removeAttribute('style');
+}
 
 const hideItineraryContainer = () => {
   document.querySelector('.itinerary-container').style.display = 'none';
@@ -103,7 +133,7 @@ const applyFilterAction = e => {
   if(clearAction) {
     clearFilterSelection();
   }
-  
+
   updateTypeSelection();
   googleMap.clearMarkers();
   state.selectedTypes.forEach(type => googleMap.showMarkers(type));

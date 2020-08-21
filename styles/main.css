@@ -9,6 +9,7 @@
   color: #ffffff;
   border: 0.15rem #0336FF solid;
   background-color: #0336FF;
+  cursor: pointer;
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }
@@ -30,6 +31,7 @@
   color: #ffffff;
   border: 0.15rem #FFDE03 solid;
   background-color: #FFDE03;
+  cursor: pointer;
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }
@@ -51,6 +53,7 @@
   color: #ffffff;
   border: 0.15rem #00BFA5 solid;
   background-color: #00BFA5;
+  cursor: pointer;
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }
@@ -72,6 +75,7 @@
   color: #ffffff;
   border: 0.15rem #FF0266 solid;
   background-color: #FF0266;
+  cursor: pointer;
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }
@@ -93,6 +97,7 @@
   color: #ffffff;
   border: 0.15rem #FF6D00 solid;
   background-color: #FF6D00;
+  cursor: pointer;
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }
@@ -114,6 +119,7 @@
   color: #ffffff;
   border: 0.15rem #AA00FF solid;
   background-color: #AA00FF;
+  cursor: pointer;
   -webkit-transition: all .3s ease;
   transition: all .3s ease;
 }
@@ -328,6 +334,14 @@
 
 .itinerary-container a:hover {
   font-weight: bold;
+}
+
+.trip-itinerary {
+  cursor: pointer;
+}
+
+.trip-itinerary:hover {
+  color: #ffffff;
 }
 
 .place-overview, .place-details, #directionsPanel {
@@ -807,7 +821,21 @@ h4 {
 }
 
 header {
+  width: 100%;
   margin-bottom: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .planner-box {

@@ -28,6 +28,7 @@ $font-primary: 'Ubuntu', sans-serif;
     color: $color-white;
     border: .15rem $color solid;
     background-color: $color;
+    cursor: pointer;
     transition: all .3s ease;
 
     i {

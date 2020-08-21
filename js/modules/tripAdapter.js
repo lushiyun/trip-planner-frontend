@@ -14,6 +14,12 @@ export default class TripAdapter {
       .catch(err => alert(err));
   }
 
+  parseAndAddIndex(json) {
+    json.data.forEach(tripObj => this.addTripInstance(tripObj));
+    this.addIncludedInstances(json);
+    Trip.all.forEach(trip => trip.addToDom());
+  }
+
   newTrip(tripObj) {
     const configObj = {
       method: "POST",
@@ -28,14 +34,12 @@ export default class TripAdapter {
       .then(json => this.parseAndAddElement(json));
   }
 
-  parseAndAddIndex(json) {
-    json.data.forEach(tripObj => this.addTripInstance(tripObj));
-    this.addIncludedInstances(json);
-  }
-
   parseAndAddElement(json) {
     this.addTripInstance(json.data);
     this.addIncludedInstances(json);
+    const trip = Trip.findById(json.data.id);
+    trip.addToDom();
+    alert('Trip saved successfully');
   }
 
   addIncludedInstances(data) {
