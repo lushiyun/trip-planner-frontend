@@ -61,11 +61,13 @@ export default class Trip {
     const center = {lat: parseFloat(this.lat), lng: parseFloat(this.lng)};
     googleMap.clearMarkers();
     googleMap.clearCards();
-    document.querySelectorAll('.selected').forEach(filter => filter.classList.remove('selected'));
+    Array.from(document.querySelectorAll('.selected')).forEach(filter => filter.classList.remove('selected'));
     googleMap.initMap(center);
 
     Array.from(document.querySelectorAll('.daily')).forEach(dailyPlanner => dailyPlanner.remove());
-    document.querySelector('.planner-actions').remove();
+    if(document.querySelector('.planner-actions')) {
+      document.querySelector('.planner-actions').remove();
+    }
 
     this.days().forEach(day => {
       const plannerBox = day.createPlannerBox();
