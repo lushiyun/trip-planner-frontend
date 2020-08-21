@@ -57,7 +57,19 @@ const showDailyPlanners = (data) => {
     plannerBox.appendChild(plannerList);
     elements.plannerContent.appendChild(plannerBox);
   })
-  elements.plannerContent.innerHTML += `<div class="planner-actions"><a class="clear" title="Reset"><i class="material-icons">layers_clear</i></a><a class="save" title="Save"><i class="material-icons">save</i></a></div>`
+  elements.plannerContent.innerHTML += `<div class="planner-actions"><a class="save" title="Save"><i class="material-icons">save</i></a></div>`
+}
+
+export const addPlaceToPlanner = () => {
+  const placeDetails = document.querySelector('.place-details');
+  const placeId = placeDetails.id;
+  const introHTML = placeDetails.querySelector('.place-intro').innerHTML;
+  const placeItem = document.createElement('div');
+  placeItem.className = 'list-item';
+  placeItem.setAttribute('data-place-id', placeId);
+  placeItem.setAttribute('draggable', true);
+  placeItem.innerHTML = `<div class="item-content">${introHTML}</div><div class="item-actions"><i class="material-icons delete">delete</i><i class="material-icons duplicate">add_box</i></div>`;
+  document.querySelector('.bucket .planner-list').appendChild(placeItem);
 }
 
 export const clearDailyPlanners = () => {
@@ -70,4 +82,47 @@ export const clearPlaceItems = () => {
 
 export const clearDateRange = () => {
   dateRange = [];
+}
+
+elements.plannerContent.addEventListener('dragstart', e => {
+  if(e.target.closest('.list-item')) {
+    e.target.closest('.list-item').classList.add('dragging');
+  }
+})
+
+elements.plannerContent.addEventListener('dragend', e => {
+  if(e.target.closest('.list-item')) {
+    e.target.closest('.list-item').classList.remove('dragging');
+  }
+})
+
+elements.plannerContent.addEventListener('dragover', e => {
+  if(e.target.closest('.planner-list')) {
+    sortAndDisplayItem(e);
+  }
+})
+
+const sortAndDisplayItem = (e) => {
+  const container = e.target.closest('.planner-list');
+  const item = document.querySelector('.dragging');
+  const afterElement = getDragAfterElement(container, e.clientY);
+  if(afterElement) {
+    container.insertBefore(item, afterElement);
+  } else {
+    container.appendChild(item);
+  }
+  e.preventDefault();
+}
+
+const getDragAfterElement = (container, y) => {
+  const draggableElms = [...container.querySelectorAll('.list-item:not(.dragging)')];
+  return draggableElms.reduce((closest, child) => {
+    const rect = child.getBoundingClientRect();
+    const offset = y - rect.top - rect.height / 2;
+    if(offset < 0 && offset > closest.offset) {
+      return { offset: offset, element: child };
+    } else {
+      return closest;
+    }
+  }, { offset: Number.NEGATIVE_INFINITY }).element;
 }

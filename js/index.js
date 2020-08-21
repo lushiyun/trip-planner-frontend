@@ -6,44 +6,23 @@ import TripAdapter from './modules/tripAdapter.js';
 const state = {};
 const tripAdapter = new TripAdapter();
 
+/*
+****** Global Controller *******
+*/
+
 document.addEventListener('DOMContentLoaded', () => {
-  hideItineraryContainer();
-  showInitContentContainer();
+  showItem(elements.initModal);
+  hideItem(elements.itineraryContainer);
+  showItem(elements.initContentContainer);
   tripAdapter.fetchTrips();
 })
 
-// INIT FORM CONTROLLER
-const searchBox = new google.maps.places.SearchBox(elements.cityInput);
-
-searchBox.addListener('places_changed', () => {
-  const city = searchBox.getPlaces()[0];
-  if(city === null) return
-  state.cityName = city.name;
-  state.mapCenter = city.geometry.location;
-})
-
-document.querySelector('#search-submit').addEventListener('click', e => {
-  e.preventDefault();
-  controlInit(e);
-})
-
 document.addEventListener('click', e => {
-  if(e.target.className === 'show-itineraries') {
-
-    hideInitContentContainer();
-    showItineraryContainer();
+  if(e.target.classList.contains('show-itineraries')) {
+    showItem(elements.initModal);
+    hideItem(elements.initContentContainer);
+    showItem(elements.itineraryContainer);
   }
-})
-
-elements.initModal.addEventListener('click', e => {
-  if(e.target.id === 'show-itineraries') {
-    hideInitContentContainer();
-    showItineraryContainer();
-  } else if(e.target.id === 'itinerary-back') {
-    hideItineraryContainer();
-    showInitContentContainer();
-  }
-  e.preventDefault();
 })
 
 const hideItem = elem => {
@@ -54,49 +33,57 @@ const showItem = elem => {
   elem.removeAttribute('style');
 }
 
-const hideInitModal = () => {
-  document.querySelector('#search-modal').style.display = 'none';
-}
+// Listen for place change in google searchbox
+const searchBox = new google.maps.places.SearchBox(elements.cityInput);
+searchBox.addListener('places_changed', () => {
+  const city = searchBox.getPlaces()[0];
+  if(city === null) return
+  state.cityName = city.name;
+  state.mapCenter = city.geometry.location;
+})
 
-const showInitModal = () => {
-  document.querySelector('#search-modal').removeAttribute('style');
-}
+/*
+****** Init Modal Controller *******
+*/
 
-const hideItineraryContainer = () => {
-  document.querySelector('.itinerary-container').style.display = 'none';
-}
+elements.initModal.addEventListener('click', e => {
+  if(e.target.id === 'itinerary-back') {
+    showItem(elements.initContentContainer);
+    hideItem(elements.itineraryContainer);
+  }
+  e.preventDefault();
+})
 
-const showItineraryContainer = () => {
-  document.querySelector('.itinerary-container').removeAttribute('style');
-}
-
-const hideInitContentContainer = () => {
-  document.querySelector('.init-content-container').style.display = 'none';
-}
-
-const showInitContentContainer = () => {
-  document.querySelector('.init-content-container').removeAttribute('style');
-}
+elements.searchSubmit.addEventListener('click', e => {
+  controlInit(e);
+  e.preventDefault();
+})
 
 const controlInit = e => {
   if (!state.mapCenter) {
-    alert('Something went wrong');
+    alert('Something went wrong. Select your destination again from the menu.');
   } else {
     planner.getDates();
     googleMap.initMap(state.mapCenter);
+
+    // set selected types to all available types - google map api only supports place search one type at a time
     state.selectedTypes = Object.keys(googleMap.placeTypes);
-    loadMap();
+
+    loadMapMarkersAndPlaces();
+
+    // call weather forecast from API for destination and render weather info in daily planners
     planner.getWeather(state.mapCenter.lat(), state.mapCenter.lng());
+
     elements.initForm.reset();
-    elements.initModal.style.display = 'none';
+    hideItem(elements.initModal);
   }
   e.preventDefault();
 }
 
-const loadMap = async () => {
+const loadMapMarkersAndPlaces = async () => {
   for (const type of state.selectedTypes) {
     const results = await googleMap.getPlaces(state.mapCenter, 8000, type);
-    results.forEach(place => googleMap.savePlace(place, type))
+    results.forEach(place => googleMap.savePlace(place, type));
     googleMap.addMarker(type);
     googleMap.showMarkers(type);
     googleMap.createCard(type);
@@ -104,24 +91,40 @@ const loadMap = async () => {
   googleMap.updatePlaceNumber(state.selectedTypes);
 }
 
-//PLACE CONTROLLER
+/*
+****** Place Controller *******
+*/
+
+elements.placeContainer.addEventListener('click', e => {
+  // when place container shows place overviews
+  if(e.target.closest('.filter-buttons')) {
+    selectPlaceFilters(e);
+  } else if(e.target.closest('#filter-actions')) {
+    applyFilterAction(e);
+
+  // when place container shows place details and routes
+  } else if(e.target.closest('.back')) {
+    loadInitPage();
+  } else if(e.target.closest('.heart')) {
+    planner.addPlaceToPlanner();
+  }
+})
+
 const selectPlaceFilters = e => {
   const filterLi = e.target.closest('.filter-li');
   if(filterLi) filterLi.childNodes[0].classList.toggle('selected');
 }
 
 const clearFilterSelection = () => {
-  document.querySelectorAll('.selected').forEach(filter => {
-    filter.classList.remove('selected');
-  })
+  document.querySelectorAll('.selected').forEach(filter => filter.classList.remove('selected'));
 }
 
 const updateTypeSelection = () => {
-  const selectedLinks = document.querySelectorAll('.selected');
-  if(selectedLinks) {
-    state.selectedTypes = [...selectedLinks].map(link => link.parentNode.id);
-  } else {
+  const selectedElems = Array.from(document.querySelectorAll('.selected'));
+  if(selectedElems.length === 0) {
     state.selectedTypes = Object.keys(googleMap.placeTypes);
+  } else {
+    state.selectedTypes = selectedElems.map(element => element.parentNode.id);
   }
 }
 
@@ -133,8 +136,9 @@ const applyFilterAction = e => {
   if(clearAction) {
     clearFilterSelection();
   }
-
+  debugger
   updateTypeSelection();
+
   googleMap.clearMarkers();
   state.selectedTypes.forEach(type => googleMap.showMarkers(type));
   googleMap.clearCards();
@@ -144,43 +148,55 @@ const applyFilterAction = e => {
 }
 
 const loadInitPage = () => {
-  googleMap.removePlaceDetails();
-  googleMap.removeDirectionsPanel();
-  googleMap.displayPlaceOverview();
+  googleMap.removeItem(document.querySelector('.place-details'));
+  googleMap.removeItem(document.querySelector('#directionsPanel'));
+  showItem(document.querySelector('.place-overview'));
 
   googleMap.removeDirectionsRenderer();
   googleMap.clearMarkers();
-  googleMap.initMap(state.mapCenter);
-  state.selectedTypes.forEach(type => googleMap.showMarkers(type));
+  // googleMap.initMap(state.mapCenter);
+  
+  if(state.selectedTypes) {
+    state.selectedTypes.forEach(type => googleMap.showMarkers(type));
+  }
 
+  // remove clicked style from all planner boxes in the planner section
   removeAllClickedStyle();
 }
 
-const addPlaceToPlanner = () => {
-  const placeDetails = document.querySelector('.place-details');
-  const placeId = placeDetails.id;
-  const introHTML = placeDetails.querySelector('.place-intro').innerHTML;
-  const placeItem = document.createElement('div');
-  placeItem.className = 'list-item';
-  placeItem.setAttribute('data-place-id', placeId);
-  placeItem.setAttribute('draggable', true);
-  placeItem.innerHTML = `<div class="item-content">${introHTML}</div><div class="item-actions"><i class="material-icons delete">delete</i><i class="material-icons duplicate">add_box</i></div>`;
-  document.querySelector('.bucket .planner-list').appendChild(placeItem);
-}
+/*
+****** Planner Controller *******
+*/
 
-elements.placeContainer.addEventListener('click', e => {
-  if(e.target.closest('.filter-buttons')) {
-    selectPlaceFilters(e);
-  } else if(e.target.closest('#filter-actions')) {
-    applyFilterAction(e);
-  } else if(e.target.closest('.back')) {
-    loadInitPage();
-  } else if(e.target.closest('.heart')) {
-    addPlaceToPlanner();
+elements.plannerContent.addEventListener('click', e => {
+  // on place items
+  if(e.target.classList.contains('delete')) {
+    e.target.parentNode.parentNode.remove();
+  } else if(e.target.classList.contains('duplicate')) {
+    duplicateListItem(e);
+  
+  // on planner box
+  } else if(e.target.closest('.planner-box')) {
+    const selectedBox = e.target.closest('.planner-box');
+    removeAllClickedStyle();
+    addClickedStyle(selectedBox.querySelector('.title'));
+    const placeIds = getPlaceIds(e);
+    if(placeIds) googleMap.renderRoute(placeIds);
+
+  // on planner action links
+  } else if(e.target.closest('.save')) {
+    const tripObj = createTripObj();
+    // http post trip data to Rails backend
+    tripAdapter.newTrip(tripObj);
   }
 })
 
-// PLANNER CONTROLLER
+const duplicateListItem = e => {
+  const itemNode = e.target.parentNode.parentNode;
+  const clone = itemNode.cloneNode(true);
+  itemNode.after(clone);
+}
+
 const addClickedStyle = elm => elm.classList.add('clicked');
 
 const removeClickedStyle = elm => elm.classList.remove('clicked');
@@ -196,86 +212,7 @@ const getPlaceIds = e => {
   return itemElms.map(item => item.dataset.placeId);
 }
 
-const duplicateListItem = e => {
-  const itemNode = e.target.parentNode.parentNode;
-  const clone = itemNode.cloneNode(true);
-  itemNode.after(clone);
-}
-
-elements.plannerContent.addEventListener('click', e => {
-  if(e.target.classList.contains('delete')) {
-    e.target.parentNode.parentNode.remove();
-  } else if(e.target.classList.contains('duplicate')) {
-    duplicateListItem(e);
-  } else if(e.target.closest('.planner-box')) {
-    const selectedBox = e.target.closest('.planner-box');
-    removeAllClickedStyle();
-    addClickedStyle(selectedBox.querySelector('.title'));
-    const placeIds = getPlaceIds(e);
-    if(placeIds) googleMap.renderRoute(placeIds);
-  }
-  // } else if(e.target.closest('.save')) {
-  //   const tripObj = createTripObj();
-  //   tripAdapter.newTrip(tripObj);
-  // }
-  // } else if(e.target.closest('.clear')) {
-  //   planner.clearDailyPlanners();
-  //   planner.clearPlaceItems;
-  //   planner.clearDateRange;
-  //   clearFilterSelection();
-  //   googleMap.clearPlaceNumber();
-  //   googleMap.clearCards();
-  //   googleMap.clearPlaces();
-  //   googleMap.clearMarkers();
-  //   elements.initModal.style.display = 'block';
-  // } else if(e.target.closest('.save')) {
-    
-  // }
-})
-
-elements.plannerContent.addEventListener('dragstart', e => {
-  if(e.target.closest('.list-item')) {
-    e.target.closest('.list-item').classList.add('dragging');
-  }
-})
-
-elements.plannerContent.addEventListener('dragend', e => {
-  if(e.target.closest('.list-item')) {
-    e.target.closest('.list-item').classList.remove('dragging');
-  }
-})
-
-elements.plannerContent.addEventListener('dragover', e => {
-  if(e.target.closest('.planner-list')) {
-    sortAndDisplayItem(e);
-  }
-})
-
-const sortAndDisplayItem = (e) => {
-  const container = e.target.closest('.planner-list');
-  const item = document.querySelector('.dragging');
-  const afterElement = getDragAfterElement(container, e.clientY);
-  if(afterElement) {
-    container.insertBefore(item, afterElement);
-  } else {
-    container.appendChild(item);
-  }
-  e.preventDefault();
-}
-
-const getDragAfterElement = (container, y) => {
-  const draggableElms = [...container.querySelectorAll('.list-item:not(.dragging)')];
-  return draggableElms.reduce((closest, child) => {
-    const rect = child.getBoundingClientRect();
-    const offset = y - rect.top - rect.height / 2;
-    if(offset < 0 && offset > closest.offset) {
-      return { offset: offset, element: child };
-    } else {
-      return closest;
-    }
-  }, { offset: Number.NEGATIVE_INFINITY }).element;
-}
-
+// arrange triple nested data structure for HTTP post action
 const createTripObj = () => {
   const days_attributes = [...document.querySelectorAll('.daily')].map(plannerBox => {
     const dateStr = plannerBox.querySelector('.date').innerText;
@@ -290,7 +227,6 @@ const createTripObj = () => {
 
     return { date, places_attributes };
   })
-  debugger
 
   const city = state.cityName;
   const lat = state.mapCenter.lat();

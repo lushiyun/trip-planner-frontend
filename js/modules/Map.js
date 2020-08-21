@@ -5,8 +5,8 @@ let map;
 let service;
 let directionsService;
 let directionsRenderer;
-export const places = {};
-export const markers = {};
+const places = {};
+const markers = {};
 
 export const placeTypes = {
   see: 'tourist_attraction',
@@ -44,13 +44,14 @@ export function getPlaces(location, radius, type) {
 }
 
 export function savePlace(place, type) {
+  // an array of type objects with each type containing corresponding place data for easy filtering
   const placesArr = Object.values(places).flat();
   if(placesArr.find(record => record.place_id === place.place_id)) return
-  places[type] ? (places[type].push(place)) : (places[type] = [place]);
+  places[type] ? places[type].push(place) : (places[type] = [place]);
 }
 
 export function clearPlaceNumber() {
-  document.querySelector('#place-num').innerText = '';
+  elements.placeNum.innerText = '';
 }
 
 export function updatePlaceNumber(types) {
@@ -58,9 +59,9 @@ export function updatePlaceNumber(types) {
   const numArr = types.map(type => places[type].length);
   const totalNum = numArr.reduce((memo, curr) => memo + curr, 0);
   if(totalNum === 1) {
-    document.querySelector('#place-num').innerText = '1 Place';
+    elements.placeNum.innerText = '1 Place';
   } else {
-    document.querySelector('#place-num').innerText = `${totalNum} Places`;
+    elements.placeNum.innerText = `${totalNum} Places`;
   }
 }
 
@@ -127,6 +128,7 @@ export function createCard(type) {
     placeCard.id = `${place.place_id}`;
     placeCard.innerHTML = `<div class="place-content"><div class="icon icon-${type}"><i class="material-icons">local_${type}</i></div><p class="place-name">${place.name}</p><p class="place-address">${place.vicinity}</p><div class="place-rating"><div class="stars-outer"><div class="stars-inner" style="width:${starPercentageRounded}"></div></div> (${userRatings})</div></div><img class="place-img" src="${imgSrc}" alt="${place.name} photo"></div>
     `;
+
     elements.placeList.appendChild(placeCard);
     placeCard.addEventListener('click', () => {
       highlightMarker(place);
@@ -225,7 +227,7 @@ async function showPlaceDetails(place, type) {
   placeDetails.appendChild(getPlaceReviewDiv(result.reviews));
   placeDetails.innerHTML += getPlaceActionDiv();
 
-  hidePlaceOverview();
+  elements.placeOverview.style.display = 'none';
   elements.placeContainer.appendChild(placeDetails);
 }
 
@@ -257,32 +259,20 @@ export function renderRoute(placeIds) {
     if (status == 'OK') {
       clearMarkers();
       directionsRenderer.setMap(map);
-      hidePlaceOverview();
-      removePlaceDetails();
-      removeDirectionsPanel();
+      elements.placeOverview.style.display = 'none';
+      removeItem(document.querySelector('.place-details'));
+      removeItem(document.querySelector('#directionsPanel'));
       const directionsPanel = createDirectionsPanel();
       directionsRenderer.setPanel(directionsPanel);
       directionsRenderer.setDirections(result);
     } else {
-      console.log(status);
+      alert(status);
     }
   });
 }
 
-export function hidePlaceOverview() {
-  if(document.querySelector('.place-overview')) document.querySelector('.place-overview').style.display = 'none';
-}
-
-export function displayPlaceOverview() {
-  document.querySelector('.place-overview').removeAttribute('style');
-}
-
-export function removePlaceDetails() {
-  if(document.querySelector('.place-details')) document.querySelector('.place-details').remove();
-}
-
-export function removeDirectionsPanel() {
-  if(document.querySelector('#directionsPanel')) document.querySelector('#directionsPanel').remove();
+export function removeItem(item) {
+  if(item) item.remove();
 }
 
 export function removeDirectionsRenderer() {
@@ -290,12 +280,4 @@ export function removeDirectionsRenderer() {
     directionsRenderer.setMap(null);
     directionsRenderer = null;
   }
-}
-
-export function clearPlaces() {
-  places = {};
-}
-
-export function clearMarkerRecords() {
-  markers = {};
 }

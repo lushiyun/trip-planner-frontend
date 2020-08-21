@@ -6,6 +6,9 @@ export const elements = {
   startDateInput: document.querySelector('#start-date'),
   endDateInput: document.querySelector('#end-date'),
   initForm: document.querySelector('#init-form'),
+  searchSubmit: document.querySelector('#search-submit'),
+  initContentContainer: document.querySelector('.init-content-container'),
+  itineraryContainer: document.querySelector('.itinerary-container'),
 
   plannerContent: document.querySelector('.planner-content'),
   placeBucket: document.querySelector('.bucket'),
