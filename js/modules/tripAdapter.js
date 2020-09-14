@@ -1,23 +1,21 @@
-import Trip from './trip.js';
-import Day from './day.js';
-import Place from './place.js';
+import Trip from "./Trip.js";
+import Day from "./Day.js";
+import Place from "./Place.js";
 
 export default class TripAdapter {
+  places = [];
+  days = [];
+  trips = [];
+
   constructor() {
-    this.baseUrl = 'http://localhost:3000/trips'
+    this.baseUrl = "http://localhost:3000/trips";
   }
 
   fetchTrips() {
     fetch(this.baseUrl)
-      .then(res => res.json())
-      .then(json => this.parseAndAddIndex(json))
-      .catch(err => alert(err));
-  }
-
-  parseAndAddIndex(json) {
-    json.data.forEach(tripObj => this.addTripInstance(tripObj));
-    this.addIncludedInstances(json);
-    Trip.all.forEach(trip => trip.addToDom());
+      .then((res) => res.json())
+      .then((json) => this.updateState(json))
+      .catch((err) => alert(err));
   }
 
   newTrip(tripObj) {
@@ -25,40 +23,49 @@ export default class TripAdapter {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accepts": "application/json"
+        Accepts: "application/json",
       },
-      body: JSON.stringify(tripObj)
-    }
+      body: JSON.stringify(tripObj),
+    };
     fetch(this.baseUrl, configObj)
-      .then(res => res.json())
-      .then(json => this.parseAndAddElement(json));
+      .then((res) => res.json())
+      .then((json) => this.updateState(json));
   }
 
-  parseAndAddElement(json) {
-    this.addTripInstance(json.data);
-    this.addIncludedInstances(json);
-    const trip = Trip.findById(json.data.id);
-    trip.addToDom();
-    alert('Trip saved successfully');
+  // TODO: Fix backend to return an array always for json.data or this doesn't work
+  updateState(json) {
+    const placeObjs = json.included.filter((obj) => obj.type === "place");
+    placeObjs.forEach((placeObj) => this.addPlace(placeObj));
+
+    const dayObjs = json.included.filter((obj) => obj.type === "day");
+    dayObjs.forEach((dayObj) => this.addDay(dayObj));
+
+    json.data.forEach(
+      (tripData) =>
+        new Trip({ ...tripData.attributes, id: tripData.id, days: this.days })
+    );
   }
 
-  addIncludedInstances(data) {
-    const dayObjs = data.included.filter(obj => obj.type === 'day');
-    dayObjs.forEach(dayObj => this.addDayInstance(dayObj));
-
-    const placeObjs = data.included.filter(obj => obj.type === 'place');
-    placeObjs.forEach(placeObj => this.addPlaceInstance(placeObj));
+  addDay(data) {
+    this.days.push(
+      new Day({
+        id: data.id,
+        date: new Date(data.attributes.date.replace(/-/g, "/")),
+        trip_id: data.relationships.trip.data.id,
+        places: this.places,
+      })
+    );
   }
 
-  addTripInstance(data) {
-    new Trip({...data.attributes, id: data.id})
-  }
-
-  addDayInstance(data) {
-    new Day({ id: data.id, date: new Date(data.attributes.date.replace(/-/g, '\/')), trip_id: data.relationships.trip.data.id })
-  }
-
-  addPlaceInstance(data) {
-    new Place({ name: data.attributes.name, place_id: data.attributes.place_id, type: data.attributes.category, id: data.id, day_id: data.relationships.day.data.id });
+  addPlace(data) {
+    this.places.push(
+      new Place({
+        name: data.attributes.name,
+        place_id: data.attributes.place_id,
+        type: data.attributes.category,
+        id: data.id,
+        day_id: data.relationships.day.data.id,
+      })
+    );
   }
 }
