@@ -8,7 +8,7 @@ export default class TripAdapter {
   trips = [];
 
   constructor() {
-    this.baseUrl = "https://trip-lanner.herokuapp.com";
+    this.baseUrl = "https://trip-lanner.herokuapp.com/trips";
   }
 
   fetchTrips() {
