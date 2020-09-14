@@ -269,7 +269,6 @@ function getPlaceDetails(place) {
     service.getDetails(request, (result, status) => {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
         resolve(result);
-        debugger
       } else {
         reject(status);
       }
