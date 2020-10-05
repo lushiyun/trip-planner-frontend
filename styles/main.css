@@ -211,6 +211,7 @@
   width: 100%;
   overflow: auto;
   background: rgba(0, 0, 0, 0.7);
+  z-index: 5;
 }
 
 .modal-content {
@@ -224,6 +225,7 @@
   -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
           box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
   padding: 1rem 5rem;
+  z-index: 10;
 }
 
 .init-content-container {
