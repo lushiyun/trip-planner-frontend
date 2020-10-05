@@ -1,6 +1,5 @@
 .modal {
   position: fixed;
-  z-index: 5;
   left: 0;
   top: 0;
   height: 100%;
@@ -10,8 +9,12 @@
 }
 
 .modal-content {
-  background: rgb(238,174,202);
-  background: linear-gradient(70deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background: rgb(238, 174, 202);
+  background: linear-gradient(
+    70deg,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
   position: relative;
   margin: 15% auto;
   width: 40%;
@@ -19,7 +22,7 @@
   border-radius: 6px;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
   padding: 1rem 5rem;
-  z-index: 999;
+  // z-index: 999;
 }
 
 .init-content-container {
@@ -44,8 +47,8 @@
     border: 0;
     border-radius: 4px;
     padding: 1.2rem 2rem;
-    margin-bottom: 2rem;;
-    transition: .3s ease;
+    margin-bottom: 2rem;
+    transition: 0.3s ease;
   }
   button {
     outline: none;
@@ -57,7 +60,7 @@
     color: $color-dark;
     text-transform: uppercase;
     cursor: pointer;
-    transition: .3s ease;
+    transition: 0.3s ease;
     margin-bottom: 2rem;
     &:hover {
       font-weight: bold;
@@ -65,7 +68,7 @@
   }
   a {
     color: $color-white;
-    transition: .3s ease;
+    transition: 0.3s ease;
     &:hover {
       font-weight: bold;
       cursor: pointer;
@@ -83,7 +86,7 @@
   p {
     font-size: 1.4rem;
     color: $color-grey;
-    margin-bottom: .75rem;
+    margin-bottom: 0.75rem;
   }
 }
 
@@ -96,7 +99,7 @@
   a {
     color: $color-white;
     cursor: pointer;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     &:hover {
       font-weight: bold;
     }
@@ -108,4 +111,9 @@
   &:hover {
     color: $color-white;
   }
+}
+
+#start-date,
+#end-date {
+  z-index: 999 !important;
 }

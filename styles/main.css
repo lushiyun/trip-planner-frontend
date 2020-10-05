@@ -205,7 +205,6 @@
 
 .modal {
   position: fixed;
-  z-index: 5;
   left: 0;
   top: 0;
   height: 100%;
@@ -225,7 +224,6 @@
   -webkit-box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
           box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
   padding: 1rem 5rem;
-  z-index: 999;
 }
 
 .init-content-container {
@@ -266,8 +264,8 @@
   border-radius: 4px;
   padding: 1.2rem 2rem;
   margin-bottom: 2rem;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 
 #init-form button {
@@ -280,8 +278,8 @@
   color: #191924;
   text-transform: uppercase;
   cursor: pointer;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
   margin-bottom: 2rem;
 }
 
@@ -291,8 +289,8 @@
 
 #init-form a {
   color: #ffffff;
-  -webkit-transition: .3s ease;
-  transition: .3s ease;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 
 #init-form a:hover {
@@ -313,7 +311,7 @@
 .intro-language p {
   font-size: 1.4rem;
   color: #616161;
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
 }
 
 .itinerary-container {
@@ -328,8 +326,8 @@
 .itinerary-container a {
   color: #ffffff;
   cursor: pointer;
-  -webkit-transition: all .3s ease;
-  transition: all .3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .itinerary-container a:hover {
@@ -342,6 +340,11 @@
 
 .trip-itinerary:hover {
   color: #ffffff;
+}
+
+#start-date,
+#end-date {
+  z-index: 999 !important;
 }
 
 .place-overview, .place-details, #directionsPanel {
@@ -1072,7 +1075,6 @@ body, html {
   padding: 1.5rem 1.5rem 1.5rem .75rem;
   -webkit-box-shadow: 8px 0 10px -6px rgba(0, 0, 0, 0.3);
           box-shadow: 8px 0 10px -6px rgba(0, 0, 0, 0.3);
-  z-index: 1;
 }
 
 #map {

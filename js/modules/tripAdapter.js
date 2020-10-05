@@ -31,8 +31,7 @@ export default class TripAdapter {
       .then((res) => res.json())
       .then((json) => this.updateState(json));
   }
-
-  // TODO: Fix backend to return an array always for json.data or this doesn't work
+  
   updateState(json) {
     const placeObjs = json.included.filter((obj) => obj.type === "place");
     placeObjs.forEach((placeObj) => this.addPlace(placeObj));
