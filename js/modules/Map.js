@@ -93,36 +93,6 @@ let directionsRenderer;
 const places = {};
 const markers = {};
 
-class Map {
-  //   let map;
-  // let service;
-  // let directionsService;
-  // let directionsRenderer;
-  // const places = {};
-  // const markers = {};
-
-  constructor() {}
-
-  init() {}
-
-  addMarker() {}
-  showMarkers() {}
-  clearMarkers() {}
-
-  createCard() {}
-
-  updatePlaceNumber() {}
-
-  removeItem() {}
-
-  removeDirectionsRender() {}
-
-  renderRoute() {}
-
-  savePlace() {}
-  getPlaces() {}
-}
-
 export function initMap(center) {
   map = new google.maps.Map(elements.map, {
     center: center,

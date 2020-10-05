@@ -29,7 +29,8 @@ export default class TripAdapter {
     };
     fetch(this.baseUrl, configObj)
       .then((res) => res.json())
-      .then((json) => this.updateState(json));
+      .then((json) => this.updateState(json))
+      .then(alert('Trip saved successfully. Check existing itineraries.'))
   }
   
   updateState(json) {
